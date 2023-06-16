@@ -14,6 +14,8 @@ const Login = ({ setToken, setMyMessages }) => {
     const user = {username, password};
 
     const results = await registeredUser(user);
+    console.log(results)
+    
 
     if (results.success) {
       setToken(results.data.token);

@@ -212,7 +212,7 @@ export const routines = async () => {
     }
   }
   
-  //* USERS
+//* USERS
 
 export const registerUser = async (user) => {
   try {

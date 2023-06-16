@@ -6,7 +6,7 @@ import { fetchPosts, myData } from '../ajax-requests';
 function App() {
   const [token, setToken] = useState("");
   const [posts, setPosts] = useState([]);
-  const [currentPost, setCurrentPost] = useState({});
+  const [currentRoutine, setCurrentRoutine] = useState({});
   const [myMessages, setMyMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [title, setTitle] = useState("");
@@ -61,7 +61,7 @@ function App() {
         />
         <Route
           path='/login'
-          element={<Login setToken={setToken} setMyMessages={setMyMessages} myMessages={myMessages}/>}
+          element={<Login setToken={setToken} />}
         />
         <Route
           path='/createPost'
@@ -78,8 +78,8 @@ function App() {
           element={<Profile myMessages={myMessages} setCurrentPost={setCurrentPost} posts={posts} token={token} setToken={setToken} />}
         />
         <Route
-          path='/viewPost'
-          element={<ViewPost currentPost={currentPost} token={token} setCurrentPost={setCurrentPost} setToken={setToken} />}
+          path='/viewSingleRoutine'
+          element={<ViewSingleRoutine currentRoutine={currentRoutine} setCurrentRoutine={setCurrentPost} token={token} setToken={setToken} />}
         />
         <Route
           path='/updatePost'
