@@ -7,4 +7,4 @@ export { default as Profile } from './Profile';
 export { default as Register } from './Register';
 export { default as SendMessage } from './SendMessage';
 export { default as UpdatePost } from './UpdatePost';
-export { default as ViewPost } from './ViewPost';
+export { default as ViewSingleRoutine } from './ViewSingleRoutine';

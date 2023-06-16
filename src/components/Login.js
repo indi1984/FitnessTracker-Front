@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ajaxLogin, myData } from "../ajax-requests";
+import { registeredUser, myData } from "../ajax-requests";
 
 const Login = ({ setToken, setMyMessages }) => {
   const [username, setUsername] = useState("");
@@ -13,7 +13,7 @@ const Login = ({ setToken, setMyMessages }) => {
     event.preventDefault();
     const user = {username, password};
 
-    const results = await ajaxLogin(user);
+    const results = await registeredUser(user);
 
     if (results.success) {
       setToken(results.data.token);

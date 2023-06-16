@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { deletePost } from "../ajax-requests";
+import { deleteRoutine } from "../ajax-requests";
 
-const ViewPost = ({ currentPost, token, setCurrentPost, setToken }) => {
+const ViewSingleRoutine = ({ currentPost, token, setCurrentPost, setToken }) => {
 
   async function handleDelete(id, token) {
-    const results = await deletePost(id, token);
+    const results = await deleteRoutine(id, token);
     if (results.success) {
       window.location.href = "/";
     }
@@ -45,4 +45,4 @@ const ViewPost = ({ currentPost, token, setCurrentPost, setToken }) => {
   )
 }
 
-export default ViewPost;
+export default ViewSingleRoutine;
