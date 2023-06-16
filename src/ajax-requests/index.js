@@ -1,163 +1,288 @@
-export const COHORT_NAME = "2301-FTB-ET-WEB-FT"
-export const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
+export const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api';
 
-// POSTS REQUEST ROUTES ============================================
-export async function fetchPosts(token) {
+//* ACTIVITIES
+
+export const activities = async () => {
   try {
-    const postsResponse = await fetch(`${BASE_URL}/posts`, {
+    const response = await fetch(`${BASE_URL}/activities`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Content-Type": "application/json",
       }
     });
-    const postsData = await postsResponse.json();
-
-    return postsData;
+    const result = await response.json();
+    return result;
   } catch (error) {
-    throw error;
+    console.error(error);
   }
 };
 
-export const makePost = async (post, token) => {
+export const newActivity = async (activity) => {
   try {
-    const response = await fetch(`${BASE_URL}/posts`, {
+    const response = await fetch(`${BASE_URL}/activities`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        post
-      })
+      body: JSON.stringify(
+        activity
+      )
     });
     const result = await response.json();
-    console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
+    return result;
+  } catch (error) {
+    console.error(error);
   }
-}
+};
 
-export const deletePost = async (id, token) => {
-  console.log("Post deleted", id, token);
-  try {
-    const response = await fetch(`${BASE_URL}/posts/${id}`, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    const result = await response.json();
-    console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
-  }
-}
+export const updateActivity = async (activityId, token, activity) => {
+    try {
+      const response = await fetch(`${BASE_URL}/posts/:${activityId}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+          activity
+        )
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-export const postMessage = async (id, token, message) => {
-  try {
-    const response = await fetch(`${BASE_URL}/posts/${id}/messages`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        message: {
-          content: message
+    export const publicRoutineData = async (activityId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/activities/:${activityId}/routines`, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      })
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //* ROUTINE ACTIVITIES
+
+export const updateRoutineActivity = async (routineActivityId, token, routineActivity) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routine_activities/:${routineActivityId}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+          routineActivity
+        )
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  export const deleteRoutineActivity = async (routineActivityId, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routine_activities/:${routineActivityId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+ //* ROUTINES
+
+// GET /routines
+export const routines = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines`, {
+      method: "GET",
+      headers: {
+      'Content-Type': 'application/json',
+      },
     });
+    
     const result = await response.json();
     console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
-  }
-}
+    return result;
 
-export const updatePost = async (id, token, post) => {
-  try {
-    // You will need to insert a variable into the fetch template literal 
-    // in order to make the POST_ID dynamic. 
-    // 5e8d1bd48829fb0017d2233b is just for demonstration.
-    const response = await fetch(`${BASE_URL}/posts/${id}`, {
-      method: "PATCH",
-      headers: {
+    } catch (err) {
+    console.error(err);
+    }
+  }
+   
+  // POST /routines
+  export const createRoutine = async (routine, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines`, {
+        method: "POST",
+        headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        post
-      })
-    });
-    const result = await response.json();
-    console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
+        },
+        body: JSON.stringify(
+          routine
+        )
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+
+    } catch (err) {
+      console.error(err);
+    }
   }
-}
 
+  // PATCH /routines/:routineId
+  export const updateRoutine = async (routineId, token, routine) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines/:${routineId}`, {
+        method: "PATCH",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+          routine
+        )
+      });
+      const result = await response.json();
+      console.log(result);
+      return result;
 
-// USERS REQUEST ROUTES ============================================
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // DELETE /routines/:routineId
+  export const deleteRoutine = async (routineId, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines/:${routineId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // POST /routines/:routineId/activities
+  export const attachActivity = async (routineId, activity) => {
+    try {
+      const response = await fetch (`${BASE_URL}/routines/:${routineId}/activities`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          activity
+        )
+      });
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+      
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
+  //* USERS
+
 export const registerUser = async (user) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/users/register`, {
+    const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        user
-      })
+      body: JSON.stringify(
+        user,
+      )
     });
+    console.log(user);  //! CONSOLE LOG
+
     const result = await response.json();
-// You can log ▲▲▲ the result
-// here ▼▼▼ to view the json object before returning it
-    // console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
+    console.log(result);  //! CONSOLE LOG
+
+
+    return result;
+  } catch (error) {
+    console.error(error);
   }
-}
+};
 
-export const ajaxLogin = async (user) => {
-
+export const registeredUser = async (user) => {
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
+      body: JSON.stringify(
         user
-      })
+      )
     });
     const result = await response.json();
-    console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
+
+    console.log(result)
+    return result;
+  } catch (error) {
+    console.error(error);
   }
-}
+};
 
 export const myData = async (token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/users/me`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  try {
-    const response = await fetch(`${BASE_URL}/users/me`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-    const result = await response.json();
-    console.log(result);
-    return result
-  } catch (err) {
-    console.error(err);
-  }
-}
+  export const myRoutineData = async (username, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/users/:${username}/routines`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const result = await response.json();
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
