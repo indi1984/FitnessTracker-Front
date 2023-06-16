@@ -1,17 +1,34 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { makePost } from "../ajax-requests";
+import { updateRoutine } from "../ajax-requests";
 
-const CreatePost = ({ token, title, description, price, location, willDeliver, setTitle, setDescription, setPrice, setLocation, setWillDeliver, setToken }) => {
+const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
+
+  const {title, description, price, location, willDeliver, _id } = currentPost;
+
+  const [updatedTitle, setUpdatedTitle] = useState(title);
+  const [updatedDescription, setUpdatedDescription] = useState(description);
+  const [updatedPrice, setUpdatedPrice] = useState(price);
+  const [updatedLocation, setUpdatedLocation] = useState(location);
+  const [updatedWillDeliver, setUpdatedWillDeliver] = useState(willDeliver);
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const post = {title, description, price, location, willDeliver};
-    const results = await makePost(post, token);
-    if (results.success) {
-      alert("Post created successfully!");
-      window.location.href = "/";
+
+    const post = {
+      title: updatedTitle,
+      description: updatedDescription,
+      price: updatedPrice,
+      location: updatedLocation,
+      willDeliver: updatedWillDeliver
     }
+
+    const results = await updatePost(_id, token, post);
+    
+    if (results.success) {
+      alert("Post updated successfully!");
+      window.location.href = "/";
+    };
   }
 
   function logout() {
@@ -19,7 +36,7 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
     window.localStorage.removeItem("token");
   }
 
-  return (
+  return(
     <page>
       <nav id="navbar">
         { !token
@@ -30,19 +47,19 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
-        </nav>
+      </nav>
       <div>
         {token
           ? <form onSubmit={handleSubmit}>
-              <h2>Add New Post</h2>
+              <h2>Update Post</h2>
               <fieldset>
                 <div>
                   <label>Title:</label>
                   <input 
                     type="text"
                     placeholder="Enter Title*"
-                    value={title}
-                    onChange={(event) => {setTitle(event.target.value)}}
+                    value={updatedTitle}
+                    onChange={({target: {value}}) => {setUpdatedTitle(value)}}
                     required
                   />
                 </div>
@@ -51,8 +68,8 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
                   <input 
                     type="text"
                     placeholder="Enter Description*"
-                    value={description}
-                    onChange={(event) => {setDescription(event.target.value)}}
+                    value={updatedDescription}
+                    onChange={(event) => {setUpdatedDescription(event.target.value)}}
                     required
                   />
                 </div>
@@ -61,8 +78,8 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
                   <input 
                     type="text"
                     placeholder="Enter Price*"
-                    value={price}
-                    onChange={({target: {value}}) => {setPrice(value)}}
+                    value={updatedPrice}
+                    onChange={({target: {value}}) => {setUpdatedPrice(value)}}
                     required
                   />
                 </div>
@@ -71,19 +88,19 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
                   <input 
                     type="text"
                     placeholder="Enter Location"
-                    value={location}
-                    onChange={({target: {value}}) => {setLocation(value)}}
+                    value={updatedLocation}
+                    onChange={({target: {value}}) => {setUpdatedLocation(value)}}
                   />
                 </div>
                 <div>
                   <label id="checkbox">Willing to Deliver?</label>
                   <input 
                     type="checkbox"
-                    value={willDeliver}
-                    onChange={({target: {value}}) => {setWillDeliver(value)}}
+                    value={updatedWillDeliver}
+                    onChange={({target: {value}}) => {setUpdatedWillDeliver(value)}}
                   />
                 </div>
-                <button type="submit">Create Post</button>
+                <button type="submit">Update Post</button>
               </fieldset>
             </form>
           : <h1 id="errorMessage">You must be logged in to create a post!</h1>
@@ -93,4 +110,4 @@ const CreatePost = ({ token, title, description, price, location, willDeliver, s
   )
 }
 
-export default CreatePost;
+export default UpdateRoutines;

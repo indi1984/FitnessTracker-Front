@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { deleteRoutine } from "../ajax-requests";
 
-const ViewSingleRoutine = ({ currentPost, token, setCurrentPost, setToken }) => {
+const ViewSingleRoutine = ({ currentRoutine, token, setCurrentRoutine, setToken }) => {
 
-  async function handleDelete(id, token) {
-    const results = await deleteRoutine(id, token);
+  async function handleDelete(routineId, token) {
+    const results = await deleteRoutine(routineId, token);
     if (results.success) {
       window.location.href = "/";
     }

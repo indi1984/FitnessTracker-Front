@@ -13,13 +13,6 @@ const Register = ({ setToken, token }) => {
       alert("Passwords don't match!")
     } else {
       const user = {username, password};
-      /* ^This is the same as this:
-        const user = {
-          username: username,
-          password: password
-        }
-      */
-
       const results = await registerUser(user);
 
       if (results.success) {

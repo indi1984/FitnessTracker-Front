@@ -17,10 +17,9 @@ const Login = ({ setToken, setMyMessages }) => {
     console.log(results)
     
 
-    if (results.success) {
-      setToken(results.data.token);
-      setMyMessages(getMyData(results.data.token));
-      window.localStorage.setItem("token",results.data.token);
+    if (results) {
+      setToken(results.token);
+      window.localStorage.setItem("token",results.token);
       location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")

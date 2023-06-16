@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-const Profile = ({ myMessages, setCurrentPost, posts, token, setToken }) => {
+const MyRoutines = ({ setCurrentRoutines, username, token, setToken }) => {
 
-  async function getPost(postId) {
-    const postToView = posts.filter(post => post._id === postId);
-    setCurrentPost(postToView[0]);
+  async function getRoutine(username, token) {
+    const routineToView = await myRoutineData(username, token);
+    setCurrentRoutines(routineToView);
   }
 
   function logout() {
@@ -45,4 +45,4 @@ const Profile = ({ myMessages, setCurrentPost, posts, token, setToken }) => {
    )
 }
 
-export default Profile;
+export default MyRoutines;

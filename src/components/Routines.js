@@ -1,18 +1,18 @@
 import React, { Fragment } from "react";
 import { Link } from 'react-router-dom';
 
-function Posts({ posts, token, setCurrentPost, searchTerm, setSearchTerm, setToken }) {
+function Routines({ routines, token, setCurrentRoutine, setToken }) {
 
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
   }
 
-  function postMatches(post, text) {
-    // return true if any of the fields you want to check against include the text
-    // strings have an .includes() method
-    return post.description.includes(text) || post.title.includes(text);
-  }
+  // function postMatches(post, text) {
+  //   // return true if any of the fields you want to check against include the text
+  //   // strings have an .includes() method
+  //   return post.description.includes(text) || post.title.includes(text);
+  // }
 
   const filteredPosts = posts.filter(post => postMatches(post, searchTerm));
   const postsToDisplay = searchTerm.length ? filteredPosts : posts;
@@ -72,4 +72,4 @@ function Posts({ posts, token, setCurrentPost, searchTerm, setSearchTerm, setTok
   )
 }
 
-export default Posts;
+export default Routines;

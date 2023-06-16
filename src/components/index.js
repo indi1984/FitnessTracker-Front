@@ -1,10 +1,10 @@
 export { default as App } from './App';
-export { default as CreatePost } from './CreatePost';
+export { default as CreateRoutine } from './CreateRoutine';
 export { default as Header } from './Header';
 export { default as Login } from './Login';
-export { default as Posts } from './Posts';
-export { default as Profile } from './Profile';
+export { default as Routines } from './Routines';
+export { default as MyRoutines } from './MyRoutines';
 export { default as Register } from './Register';
 export { default as SendMessage } from './SendMessage';
-export { default as UpdatePost } from './UpdatePost';
+export { default as UpdateRoutine } from './UpdateRoutine';
 export { default as ViewSingleRoutine } from './ViewSingleRoutine';

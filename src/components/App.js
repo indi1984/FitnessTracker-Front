@@ -1,51 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreatePost, Header, Login, Posts, Profile, Register, SendMessage, UpdatePost, ViewPost } from "./" // by default ./ searches for index.js file in components folder
-import { fetchPosts, myData } from '../ajax-requests';
+import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
+import { routines } from '../ajax-requests';
 
 function App() {
   const [token, setToken] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [routines, setRoutines] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
-  const [myMessages, setMyMessages] = useState({});
-  const [searchTerm, setSearchTerm] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
-  const [willDeliver, setWillDeliver] = useState(false);
+  const [myRoutines, setMyRoutines] = useState({});
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [willDeliver, setWillDeliver] = useState(false);
   const page = window.location.pathname;
 
   function tokenCheck() {
     const localToken = window.localStorage.getItem("token");
     if(localToken) {
       setToken(localToken);
-      getMyData(localToken);
+      // getMyData(localToken);
     }
   }
 
-  async function getPosts() {
-    const results = await fetchPosts(token);
+  async function getRoutines() {
+    const results = await routines();
     if (results.success) {
-      setPosts(results.data.posts)
+      setRoutines(results)
     }
   };
 
-  async function getMyData(token) {
-    setMyMessages(await myData(token));
-    return myMessages;
-  }
+  // async function getMyData(token) {
+  //   setMyMessages(await myData(token));
+  //   return myMessages;
+  // }
 
   useEffect(() => {
     tokenCheck();
   }, []);
 
   useEffect(() => {
-    getPosts();
-    // if (token) {
-    //   getMyData();
-    // }
-  }, [token, myMessages]);
+    getRoutines();
+  }, [token]);
 
   return (
     <>
@@ -53,7 +50,7 @@ function App() {
       <Routes>
         <Route 
           path='/'
-          element={<Posts posts={posts} token={token} setCurrentPost={setCurrentPost} searchTerm={searchTerm} setSearchTerm={setSearchTerm} setToken={setToken} />}
+          element={<Routines routines={routines} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} />}
         />
         <Route 
           path='/register'
@@ -64,26 +61,24 @@ function App() {
           element={<Login setToken={setToken} />}
         />
         <Route
-          path='/createPost'
-          element={<CreatePost token={token} title={title} description={description} price={price} location={location} willDeliver={willDeliver} 
-            setTitle={setTitle} setDescription={setDescription} setPrice={setPrice} setLocation={setLocation} setWillDeliver={setWillDeliver} setToken={setToken}
-          />}
+          path='/createRoutine'
+          element={<CreateRoutine token={token} setToken={setToken} />}
         />
-        <Route 
+        {/* <Route 
           path='/sendMessage'
-          element={<SendMessage currentPost={currentPost} token={token} />}
-        />
+          element={<SendMessage currentRoutine={currentRoutine} token={token} />}
+        /> */}
         <Route
-          path='/profile'
-          element={<Profile myMessages={myMessages} setCurrentPost={setCurrentPost} posts={posts} token={token} setToken={setToken} />}
+          path='/myRoutines'
+          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} />}
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine currentRoutine={currentRoutine} setCurrentRoutine={setCurrentPost} token={token} setToken={setToken} />}
+          element={<ViewSingleRoutine currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
         <Route
-          path='/updatePost'
-          element={<UpdatePost currentPost={currentPost} token={token} setCurrentPost={setCurrentPost} setToken={setToken} />}
+          path='/updateRoutine'
+          element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} />}
         />
       </Routes>
     </>
