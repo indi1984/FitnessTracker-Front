@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
-import { routines } from '../ajax-requests';
+import { routines } from "../ajax-requests";
 
 function App() {
   const [token, setToken] = useState("");
@@ -58,7 +58,7 @@ function App() {
         />
         <Route
           path='/login'
-          element={<Login setToken={setToken} />}
+          element={<Login setToken={setToken} token={token} setMyRoutines={setMyRoutines} myRoutines={myRoutines} />}
         />
         <Route
           path='/createRoutine'
@@ -74,7 +74,7 @@ function App() {
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
+          element={<ViewSingleRoutine myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
         <Route
           path='/updateRoutine'

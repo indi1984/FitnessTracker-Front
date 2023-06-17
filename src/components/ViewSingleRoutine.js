@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { deleteRoutine } from "../ajax-requests";
 
-const ViewSingleRoutine = ({ currentRoutine, token, setCurrentRoutine, setToken }) => {
+const ViewSingleRoutine = ({ myRoutines, currentRoutine, setCurrentRoutine, token, setToken }) => {
   
   async function handleDelete(routineId, token) {
     const results = await deleteRoutine(routineId, token);
@@ -10,6 +10,11 @@ const ViewSingleRoutine = ({ currentRoutine, token, setCurrentRoutine, setToken 
       window.location.href = "/";
     }
   }
+
+  const routines = myRoutines;
+  console.log(routines);
+  // const singleRoutine = routines.map((routine) => routines.id === routine.id)
+  // setCurrentRoutine(SingleRoutine);
 
   function logout() {
     setToken('');
@@ -37,8 +42,8 @@ const ViewSingleRoutine = ({ currentRoutine, token, setCurrentRoutine, setToken 
         <h4>{currentRoutine.price}</h4>
         <h4>{currentRoutine.location}</h4>
         <div>
-          { currentPost.isAuthor ? <Link to="/updatePost"><button onClick={() => {setCurrentPost(currentPost)}}>UPDATE</button></Link> : null }
-          { currentPost.isAuthor ? <button onClick={() => handleDelete(currentPost._id, token)}>DELETE</button> : null }
+          { currentRoutine.isAuthor ? <Link to="/updateRoutine"><button onClick={() => {setCurrentRoutine(currentRoutine)}}>UPDATE</button></Link> : null }
+          { currentRoutine.isAuthor ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null }
         </div>
       </div>
     </section>

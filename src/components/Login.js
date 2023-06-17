@@ -1,22 +1,16 @@
-import React, { useState } from "react";
-import { registeredUser, myData } from "../ajax-requests";
+import React, { useState, useEffect } from "react";
+import { registeredUser, myRoutineData } from "../ajax-requests";
 
-const Login = ({ setToken, setMyMessages }) => {
+const Login = ({ token, setToken, setMyRoutines }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  async function getMyData(token) {
-    return await myData(token);
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
     const user = {username, password};
-
     const results = await registeredUser(user);
     console.log(results)
-    
-
+      
     if (results) {
       setToken(results.token);
       window.localStorage.setItem("token",results.token);
@@ -25,6 +19,18 @@ const Login = ({ setToken, setMyMessages }) => {
       window.alert("Username and/or Password not accepted!")
     }
   };
+
+  async function setUserRoutines (username, token) {
+    if (token) {
+      const results = await myRoutineData(username, token);
+      setMyRoutines(results);
+    }
+  }
+
+  useEffect((token) => {
+    setUserRoutines();
+  }, [ token ]);
+
 
   return (
     <form id="login" onSubmit={handleSubmit}>

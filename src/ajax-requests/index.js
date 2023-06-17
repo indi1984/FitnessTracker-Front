@@ -113,7 +113,7 @@ export const routines = async () => {
       method: "GET",
       headers: {
       'Content-Type': 'application/json',
-      },
+      }
     });
     
     const result = await response.json();
