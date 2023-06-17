@@ -14,25 +14,25 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
   //   return post.description.includes(text) || post.title.includes(text);
   // }
 
-  const filteredPosts = posts.filter(post => postMatches(post, searchTerm));
-  const postsToDisplay = searchTerm.length ? filteredPosts : posts;
+  const filteredRoutines = routines.filter(routine => routine.isPublic === true);
+  // const postsToDisplay = searchTerm.length ? filteredPosts : posts;
 
   return (
-    <section className="posts">
+    <section className="routines">
       <nav id="navbar">
       { !token
         ? <React.Fragment>
-            <Link to="/login">Login</Link>
+            <Link to="/login">   Login</Link>
             <Link to="/register">Register</Link>
           </React.Fragment>
         : <React.Fragment>
-            <Link to="/createPost">Create Listing</Link>
-            <Link to="/profile">Profile</Link>
+            <Link to="/createRoutine">    Create Routine</Link>
+            <Link to="/myRoutines">       My Routines</Link>
             <Link to="/" onClick={logout}>Logout</Link>
           </React.Fragment>
       }
       </nav>
-      <div className="searchBar">
+      {/* <div className="searchBar">
         <form id="search" onSubmit={async (event) => {
           event.preventDefault();
         }}>
@@ -49,21 +49,29 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
             <button>SEARCH</button>
           </fieldset>
         </form>
-      </div>
+      </div> */}
       {
-        postsToDisplay && postsToDisplay.map((post, index) => {
+        filteredRoutines && filteredRoutines.map((routine, index) => {
           return (
             <div
               key={index}
-              className="post"
+              className="routine"
             >
-              { post.title ? <h2>{ post.title }</h2> : <h3>MISSING INFO</h3>}
-              { post.description ? <p>{post.description}</p> : null}
-              { post.price ? <h4>Price: {post.price}</h4> : null}
-              { <h4>Seller: {post.author.username}</h4>}
-              { <h4>Location: {post.location}</h4>}
-              { !post.isAuthor && token ? <Link to="/sendMessage"><button onClick={() => {setCurrentPost(post)}}>SEND MESSAGE</button></Link> : null }
-              { post.isAuthor ? <Link to="/viewPost"><button onClick={() => {setCurrentPost(post)}}>VIEW POST</button></Link> : null }
+              { routine.name        ? <h2>{ routine.name }</h2>                 : null }
+              { routine.goal        ? <p>Goal: { routine.goal }</p>             : null }
+              { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
+              { routine.activities  ? routine.activities.map((activity, index) => {
+                <div 
+                  key={index}
+                  className="routine_activity"
+                >
+                  { activity.name     ? <h5>{ activity.name }</h5>             : null }
+                  { activity.goal     ? <p>{ activity.goal } </p>              : null }
+                  { activity.duration ? <h5>Duration: {activity.duration}</h5> : null }
+                  { activity.count    ? <h5>Count: {activity.count}</h5>       : null }
+                </div>
+              })                                                               : null }
+              { <Link to="/viewSingleRoutine"><button onClick={() => {setCurrentRoutine(routine)}}>VIEW ROUTINE</button></Link> }
             </div>
           )
         })
