@@ -90,7 +90,7 @@ h2 {
   font-size: 200%;
 }
 
-.post, .message {
+.routine, .message {
   display: flex;
   flex-direction: column;
   background-color: rgba(116, 116, 116, 0.886);

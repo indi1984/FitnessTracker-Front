@@ -2,15 +2,18 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { createRoutine } from "../ajax-requests";
 
-const CreateRoutine = ({ token, title, description, price, location, willDeliver, setTitle, setDescription, setPrice, setLocation, setWillDeliver, setToken }) => {
+const CreateRoutine = ({ token, name, goal, isPublic, setName, setGoal, setIsPublic, setToken }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const post = {  };
+    const routine = { name, goal, isPublic };
     const results = await createRoutine(routine, token);
-    if (results.success) {
+     if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
       alert("Routine created successfully!");
       window.location.href = "/";
+    } else if (results.error.includes("duplicate key")) {
+      alert("A routine with this name already exists! Please try another routine name.");
+      setName("");
     }
   }
 
@@ -20,76 +23,57 @@ const CreateRoutine = ({ token, title, description, price, location, willDeliver
   }
 
   return (
-    <page>
+    <main>
       <nav id="navbar">
         { !token
           ? window.location.href="/"
           : <React.Fragment>
               <Link to="/">Back to Listings</Link>
               <Link to="/profile">Profile</Link>
-              <Link to="/" onClick={logout}>Logout</Link>
+              <Link to="/" onClick={ logout }>Logout</Link>
             </React.Fragment>
         }
         </nav>
       <div>
         {token
-          ? <form onSubmit={handleSubmit}>
-              <h2>Add New Post</h2>
+          ? <form onSubmit={ handleSubmit }>
+              <h2>Add New Routine</h2>
               <fieldset>
                 <div>
-                  <label>Title:</label>
+                  <label>Name:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Title*"
-                    value={title}
-                    onChange={(event) => {setTitle(event.target.value)}}
+                    placeholder="Enter Name"
+                    value={ name }
+                    onChange={(event) => { setName(event.target.value) }}
                     required
                   />
                 </div>
                 <div>
-                  <label>Description:</label>
+                  <label>Goal:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Description*"
-                    value={description}
-                    onChange={(event) => {setDescription(event.target.value)}}
+                    placeholder="Enter Goal"
+                    value={ goal }
+                    onChange={(event) => { setGoal(event.target.value) }}
                     required
                   />
                 </div>
                 <div>
-                  <label>Price:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Price*"
-                    value={price}
-                    onChange={({target: {value}}) => {setPrice(value)}}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>Location:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Location"
-                    value={location}
-                    onChange={({target: {value}}) => {setLocation(value)}}
-                  />
-                </div>
-                <div>
-                  <label id="checkbox">Willing to Deliver?</label>
+                  <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={willDeliver}
-                    onChange={({target: {value}}) => {setWillDeliver(value)}}
+                    value={ isPublic }
+                    onChange={({ target: { value } }) => { setIsPublic(value) }}
                   />
                 </div>
-                <button type="submit">Create Post</button>
+                <button type="submit">Create Routine</button>
               </fieldset>
             </form>
-          : <h1 id="errorMessage">You must be logged in to create a post!</h1>
+          : <h1 id="errorMessage">You must be logged in to create a routine!</h1>
         }
       </div>
-    </page>
+    </main>
   )
 }
 

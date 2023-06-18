@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api';
+export const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
 
 //* ACTIVITIES
 
@@ -107,7 +107,7 @@ export const updateRoutineActivity = async (routineActivityId, token, routineAct
  //* ROUTINES
 
 // GET /routines
-export const routines = async () => {
+export const fetchRoutines = async () => {
   try {
     const response = await fetch(`${BASE_URL}/routines`, {
       method: "GET",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
-import { routines } from "../ajax-requests";
+import { fetchRoutines } from "../ajax-requests";
 
 function App() {
   const [token, setToken] = useState("");
@@ -9,11 +9,11 @@ function App() {
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
   // const [searchTerm, setSearchTerm] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
   // const [price, setPrice] = useState("");
   // const [location, setLocation] = useState("");
-  // const [willDeliver, setWillDeliver] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
   function tokenCheck() {
@@ -25,8 +25,9 @@ function App() {
   }
 
   async function getRoutines() {
-    const results = await routines();
-    if (results.success) {
+    const results = await fetchRoutines();
+    console.log(results);
+    if (results) {
       setRoutines(results)
     }
   };
@@ -62,7 +63,7 @@ function App() {
         />
         <Route
           path='/createRoutine'
-          element={<CreateRoutine token={token} setToken={setToken} />}
+          element={<CreateRoutine token={token} setToken={setToken} name={name} setName={setName} goal={goal} setGoal={setGoal} isPublic={isPublic} setIsPublic={setIsPublic} />}
         />
         {/* <Route 
           path='/sendMessage'

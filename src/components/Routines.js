@@ -28,7 +28,7 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
         : <React.Fragment>
             <Link to="/createRoutine">    Create Routine</Link>
             <Link to="/myRoutines">       My Routines</Link>
-            <Link to="/" onClick={logout}>Logout</Link>
+            <Link to="/" onClick={ logout }>Logout</Link>
           </React.Fragment>
       }
       </nav>
@@ -58,20 +58,20 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
               className="routine"
             >
               { routine.name        ? <h2>{ routine.name }</h2>                 : null }
-              { routine.goal        ? <p>Goal: { routine.goal }</p>             : null }
+              { routine.goal        ? <h3>Goal: { routine.goal }</h3>             : null }
               { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
-              { routine.activities  ? routine.activities.map((activity, index) => {
+              {/* { routine.activities  ? <h4>ACTIVITIES</h4>                       : null }  // <=== Made each routine look too long I think, we could use this on the viewSingleRoutine
+              { routine.activities  ? routine.activities.map((activity, id) => {
+                return (
                 <div 
-                  key={index}
+                  key={id}
                   className="routine_activity"
                 >
-                  { activity.name     ? <h5>{ activity.name }</h5>             : null }
-                  { activity.goal     ? <p>{ activity.goal } </p>              : null }
-                  { activity.duration ? <h5>Duration: {activity.duration}</h5> : null }
-                  { activity.count    ? <h5>Count: {activity.count}</h5>       : null }
+                  { activity.name        ? <h5>{ activity.name }</h5>             : null }
                 </div>
-              })                                                               : null }
-              { <Link to="/viewSingleRoutine"><button onClick={() => {setCurrentRoutine(routine)}}>VIEW ROUTINE</button></Link> }
+                )
+              })                                                               : null } */}
+              { <Link to="/viewSingleRoutine"><button onClick={() => { setCurrentRoutine(routine)} }>VIEW ROUTINE</button></Link> }
             </div>
           )
         })
@@ -81,3 +81,16 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
 }
 
 export default Routines;
+
+// for "/viewSingleRoutine":
+  // return (
+  //   <div 
+  //     key={id}
+  //     className="routine_activity"
+  //   >
+  //     { activity.name        ? <h5>{ activity.name }</h5>             : null }
+  //     { activity.description ? <p>{ activity.description } </p>       : null }
+  //     { activity.duration    ? <h5>Duration: {activity.duration}</h5> : null }
+  //     { activity.count       ? <h5>Count: {activity.count}</h5>       : null }
+  //   </div>
+  //   )
