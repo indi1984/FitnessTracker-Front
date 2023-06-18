@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
-import { routines } from "../ajax-requests";
+import { routines }from '../ajax-requests';
 
 function App() {
   const [token, setToken] = useState("");
   const [routines, setRoutines] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
-  // const [searchTerm, setSearchTerm] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [location, setLocation] = useState("");
-  // const [willDeliver, setWillDeliver] = useState(false);
+  const [myRoutineName, setMyRoutineName] = useState({});
+  const [myRoutineGoal, setMyRoutineGoal] = useState({});
   const page = window.location.pathname;
 
   function tokenCheck() {
@@ -25,7 +21,8 @@ function App() {
   }
 
   async function getRoutines() {
-    const results = await routines();
+    const results = await routines;
+    console.log(results)
     if (results.success) {
       setRoutines(results)
     }
@@ -62,7 +59,7 @@ function App() {
         />
         <Route
           path='/createRoutine'
-          element={<CreateRoutine token={token} setToken={setToken} />}
+          element={<CreateRoutine token={token} setToken={setToken} myRoutineName={myRoutineName} setMyRoutineName={setMyRoutineName} myRoutineGoal={myRoutineGoal} setMyRoutineGoal={setMyRoutineGoal} />}
         />
         {/* <Route 
           path='/sendMessage'

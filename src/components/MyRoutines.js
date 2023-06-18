@@ -13,22 +13,21 @@ const MyRoutines = ({ setCurrentRoutines, username, token, setToken }) => {
     window.localStorage.removeItem("token");
   }
 
-  const messages = myMessages.data.messages;
    return (
     <section className="messages">
       <nav id="navbar">
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/createPost">Create Listing</Link>
-              <Link to="/">Back to Listings</Link>
+              <Link to="/createPost">Create Routine</Link>
+              <Link to="/">Back to Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
         </nav>
-      <h2>My Messages</h2>
+      <h2>My Routines</h2>
       {
-        messages.map((message, index) => {
+        routineToView.map((routine, index) => {
           return (
             <div
               key={index}
