@@ -2,11 +2,11 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { createRoutine } from "../ajax-requests";
 
-const CreateRoutine = ({ token, name, goal, isPublic, setName, setGoal, setIsPublic, setToken }) => {
+const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, myRoutineName, myRoutineGoal }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const routine = { name, goal, isPublic };
+    const routine = {myRoutineName, myRoutineGoal};
     const results = await createRoutine(routine, token);
      if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
       alert("Routine created successfully!");
@@ -28,9 +28,9 @@ const CreateRoutine = ({ token, name, goal, isPublic, setName, setGoal, setIsPub
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/">Back to Listings</Link>
-              <Link to="/profile">Profile</Link>
-              <Link to="/" onClick={ logout }>Logout</Link>
+              <Link to="/">Back to Routines</Link>
+              <Link to="/profile">My Routines</Link>
+              <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
         </nav>
@@ -43,9 +43,9 @@ const CreateRoutine = ({ token, name, goal, isPublic, setName, setGoal, setIsPub
                   <label>Name:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Name"
-                    value={ name }
-                    onChange={(event) => { setName(event.target.value) }}
+                    placeholder="Enter Name*"
+                    value={myRoutineName}
+                    onChange={(event) => {setMyRoutineName(event.target.value)}}
                     required
                   />
                 </div>
@@ -53,9 +53,9 @@ const CreateRoutine = ({ token, name, goal, isPublic, setName, setGoal, setIsPub
                   <label>Goal:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Goal"
-                    value={ goal }
-                    onChange={(event) => { setGoal(event.target.value) }}
+                    placeholder="Enter Goal*"
+                    value={myRoutineGoal}
+                    onChange={(event) => {setMyRoutineGoal(event.target.value)}}
                     required
                   />
                 </div>

@@ -1,11 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { myRoutineData, myData }from '../ajax-requests';
 
-const MyRoutines = ({ setCurrentRoutines, username, token, setToken }) => {
+const MyRoutines = ({ setMyRoutines, myRoutines, routines, token, setToken }) => {
 
-  async function getRoutine(username, token) {
-    const routineToView = await myRoutineData(username, token);
-    setCurrentRoutines(routineToView);
+  async function getUserData (token) {
+    const results = await myData(token);
+    console.log("USER DATA", results);
+    const username = results.username;
+    return username;
+  }
+  
+    async function getRoutines(token) {
+    getUserData(token);
+    const routineToView = await myRoutineData(token);
+    console.log(routineToView)
+    setMyRoutines(routineToView);
   }
 
   function logout() {
@@ -13,22 +23,25 @@ const MyRoutines = ({ setCurrentRoutines, username, token, setToken }) => {
     window.localStorage.removeItem("token");
   }
 
-  const messages = myMessages.data.messages;
+  useEffect((username, token) => {
+    getRoutines(username, token);
+  }, []);
+
    return (
     <section className="messages">
       <nav id="navbar">
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/createPost">Create Listing</Link>
-              <Link to="/">Back to Listings</Link>
+              <Link to="/createRoutine">Create Routine</Link>
+              <Link to="/">Back to Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
         </nav>
-      <h2>My Messages</h2>
-      {
-        messages.map((message, index) => {
+      <h2>My Routines</h2>
+      {/* {
+        // myRoutines.map((routine, index) => {
           return (
             <div
               key={index}
@@ -40,7 +53,7 @@ const MyRoutines = ({ setCurrentRoutines, username, token, setToken }) => {
             </div>
           )
         })
-      }
+      } */}
     </section>
    )
 }

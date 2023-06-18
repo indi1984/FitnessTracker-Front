@@ -8,6 +8,8 @@ function App() {
   const [routines, setRoutines] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
+  const [myRoutineName, setMyRoutineName] = useState({});
+  const [myRoutineGoal, setMyRoutineGoal] = useState({});
   // const [searchTerm, setSearchTerm] = useState("");
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
@@ -31,11 +33,6 @@ function App() {
       setRoutines(results)
     }
   };
-
-  // async function getMyData(token) {
-  //   setMyMessages(await myData(token));
-  //   return myMessages;
-  // }
 
   useEffect(() => {
     tokenCheck();
@@ -63,7 +60,7 @@ function App() {
         />
         <Route
           path='/createRoutine'
-          element={<CreateRoutine token={token} setToken={setToken} name={name} setName={setName} goal={goal} setGoal={setGoal} isPublic={isPublic} setIsPublic={setIsPublic} />}
+          element={<CreateRoutine token={token} setToken={setToken} myRoutineName={myRoutineName} setMyRoutineName={setMyRoutineName} myRoutineGoal={myRoutineGoal} setMyRoutineGoal={setMyRoutineGoal} />}
         />
         {/* <Route 
           path='/sendMessage'
