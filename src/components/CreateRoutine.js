@@ -20,7 +20,7 @@ const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, my
   }
 
   return (
-    <page>
+    <div>
       <nav id="navbar">
         { !token
           ? window.location.href="/"
@@ -51,7 +51,7 @@ const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, my
                   <input 
                     type="text"
                     placeholder="Enter Goal*"
-                    value={myRoutineDescription}
+                    value={myRoutineGoal}
                     onChange={(event) => {setMyRoutineGoal(event.target.value)}}
                     required
                   />
@@ -62,7 +62,7 @@ const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, my
           : <h1 id="errorMessage">You must be logged in to create a post!</h1>
         }
       </div>
-    </page>
+    </div>
   )
 }
 
