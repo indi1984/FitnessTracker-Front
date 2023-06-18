@@ -21,17 +21,12 @@ function App() {
   }
 
   async function getRoutines() {
-    const results = await routines;
+    const results = await routines();
     console.log(results)
     if (results.success) {
       setRoutines(results)
     }
   };
-
-  // async function getMyData(token) {
-  //   setMyMessages(await myData(token));
-  //   return myMessages;
-  // }
 
   useEffect(() => {
     tokenCheck();
