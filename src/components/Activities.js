@@ -28,6 +28,7 @@ function Activities({ activities, token, setCurrentActivity, setToken }) {
           </React.Fragment>
         : <React.Fragment>
             <Link to="/">    All Routines</Link>
+            <Link to="/MyRoutines">    My Routines</Link>
             <Link to="/" onClick={ logout }>Logout</Link>
           </React.Fragment>
       }

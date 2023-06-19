@@ -36,7 +36,7 @@ export const newActivity = async (activity) => {
 
 export const updateActivity = async (activityId, token, activity) => {
     try {
-      const response = await fetch(`${BASE_URL}/posts/${activityId}`, {
+      const response = await fetch(`${BASE_URL}/activities/${activityId}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',

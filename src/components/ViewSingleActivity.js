@@ -27,34 +27,17 @@ const ViewSingleActivity = ({ currentActivity, setCurrentActivity, token, setTok
           :<React.Fragment>
              <Link to="/createRoutine">Create Routine</Link>
              <Link to="/myRoutines">My Routines</Link>
-             <Link to="/">Back to Routines</Link>
+             <Link to="/activities">Back to Activities</Link>
              <Link to="/" onClick={logout}>Logout</Link>
            </React.Fragment>
         }
       </nav>
       <div className="routine">
-        <h2>{currentRoutine.name}</h2>
-        <p>Goal: {currentRoutine.goal}</p>
-        { currentRoutine.activities ? <h4>ACTIVITIES</h4> : null }
-        { currentRoutine.activities ? 
-            currentRoutine.activities.map((activity, index) => {
-              return (
-                <div 
-                  key={index}
-                  className="routine_activity"
-                >
-                  { activity.name        ? <h5>{ activity.name }</h5>                    : null }
-                  { activity.description ? <p>Description: { activity.description } </p> : null }
-                  { activity.duration    ? <h5>Duration: {activity.duration}</h5>        : null }
-                  { activity.count       ? <h5>Count: {activity.count}</h5>              : null }
-                </div>
-              )
-            })
-            : null 
-        }
+        <h2>{currentActivity.name}</h2>
+        <p>Description: {currentActivity.description}</p>
         <div>
-          {/* { currentRoutine.creatorName ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(currentActivity)}}>UPDATE</button></Link> : null } */}
-          {/* { currentRoutine.creatorName ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null } */}
+          { currentActivity.id ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(currentActivity)}}>UPDATE</button></Link> : null }
+          {/* { currentActivity.id ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null } */}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
+import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities, ViewSingleActivity, UpdateActivity } from "./" // by default ./ searches for index.js file in components folder
 import { allRoutines, allActivities } from '../ajax-requests'
 
 function App() {
@@ -71,18 +71,18 @@ function App() {
           path='/viewSingleRoutine'
           element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
-        {/* <Route
+        <Route
           path='/viewSingleActivity'
           element={<ViewSingleActivity currentUser={currentUser} currentActivity={currentActivity} setCurrentActivity={setCurrentActivity} token={token} setToken={setToken} />}
-        /> */}
+        />
         <Route
           path='/updateRoutine'
           element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
-        {/* <Route
+        <Route
           path='/updateActivity'
           element={<UpdateActivity currentActivity={currentActivity} token={token} setCurrentActivity={setCurrentActivity} setToken={setToken} />}
-        /> */}
+        />
         <Route
           path='/activities'
           element={<Activities activities={activities} currentActivity= {currentActivity} setCurrentActivity={setCurrentActivity} currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
