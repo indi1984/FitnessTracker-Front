@@ -2,29 +2,25 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { myRoutineData, myData }from '../ajax-requests';
 
-const MyRoutines = ({ setMyRoutines, myRoutines, token, setToken, setCurrentRoutine, currentUser}) => {
+const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRoutine, currentUser}) => {
+
+  console.log(token);
 
   async function getUserInfo() {
-    const results = await myData(token);
-    const username = results.username;
-    setUserRoutines(username, token);
+    const { username } = await myData(token);
+    setMyRoutines(await myRoutineData(username, token));
+    console.log(myRoutines);
  }
-  
-  async function setUserRoutines(username, token) {
-    if (token) {
-      const results = await myRoutineData(username, token);
-      setMyRoutines(results);
-    }
-  }
 
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
   }
 
-  useEffect(() => {
-    getUserInfo();    
-  }, []);
+  useEffect((token) => {
+    getUserInfo(token);   
+    console.log() 
+  }, [ token ]);
 
    return (
     <section className="routines">
