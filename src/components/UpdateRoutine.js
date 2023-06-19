@@ -4,28 +4,24 @@ import { updateRoutine } from "../ajax-requests";
 
 const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
 
-  const {title, description, price, location, willDeliver, _id } = currentPost;
+  const { name, goal, isPublic, id } = currentRoutine;
 
-  const [updatedTitle, setUpdatedTitle] = useState(title);
-  const [updatedDescription, setUpdatedDescription] = useState(description);
-  const [updatedPrice, setUpdatedPrice] = useState(price);
-  const [updatedLocation, setUpdatedLocation] = useState(location);
-  const [updatedWillDeliver, setUpdatedWillDeliver] = useState(willDeliver);
+  const [updatedName, setUpdatedName] = useState(name);
+  const [updatedGoal, setUpdatedGoal] = useState(goal);
+  const [updatedIsPublic, setUpdatedIsPublic] = useState(isPublic);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const post = {
-      title: updatedTitle,
-      description: updatedDescription,
-      price: updatedPrice,
-      location: updatedLocation,
-      willDeliver: updatedWillDeliver
+    const routine = {
+      name: updatedName,
+      goal: updatedGoal,
+      isPublic: updatedIsPublic
     }
-
-    const results = await updatePost(_id, token, post);
+    console.log(routine);
+    const results = await updateRoutine(id, token, routine);
     
-    if (results.success) {
+    if (!results.error) {
       alert("Post updated successfully!");
       window.location.href = "/";
     };
@@ -37,76 +33,57 @@ const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
   }
 
   return(
-    <page>
+    <main>
       <nav id="navbar">
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/">Back to Listings</Link>
-              <Link to="/profile">Profile</Link>
-              <Link to="/" onClick={logout}>Logout</Link>
+              <Link to="/">Back to Routines</Link>
+              <Link to="/myRoutines">My Routines</Link>
+              <Link to="/" onClick={ logout }>Logout</Link>
             </React.Fragment>
         }
       </nav>
       <div>
         {token
-          ? <form onSubmit={handleSubmit}>
-              <h2>Update Post</h2>
+          ? <form onSubmit={ handleSubmit }>
+              <h2>Update Routine</h2>
               <fieldset>
                 <div>
-                  <label>Title:</label>
+                  <label>Name:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Title*"
-                    value={updatedTitle}
-                    onChange={({target: {value}}) => {setUpdatedTitle(value)}}
+                    placeholder="Enter Name*"
+                    value={updatedName}
+                    onChange={({ target: { value } }) => { setUpdatedName(value) } }
                     required
                   />
                 </div>
                 <div>
-                  <label>Description:</label>
+                  <label>Goal:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Description*"
-                    value={updatedDescription}
-                    onChange={(event) => {setUpdatedDescription(event.target.value)}}
+                    placeholder="Enter Goal*"
+                    value={ updatedGoal }
+                    onChange={ (event) => { setUpdatedGoal(event.target.value) } }
                     required
                   />
                 </div>
                 <div>
-                  <label>Price:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Price*"
-                    value={updatedPrice}
-                    onChange={({target: {value}}) => {setUpdatedPrice(value)}}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>Location:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Location"
-                    value={updatedLocation}
-                    onChange={({target: {value}}) => {setUpdatedLocation(value)}}
-                  />
-                </div>
-                <div>
-                  <label id="checkbox">Willing to Deliver?</label>
+                  <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={updatedWillDeliver}
-                    onChange={({target: {value}}) => {setUpdatedWillDeliver(value)}}
+                    value={ updatedIsPublic }
+                    onChange={({ target: { value } }) => { setUpdatedIsPublic(value) } }
                   />
                 </div>
-                <button type="submit">Update Post</button>
+                <button type="submit">Update Routine</button>
               </fieldset>
             </form>
-          : <h1 id="errorMessage">You must be logged in to create a post!</h1>
+          : <h1 id="errorMessage">You must be logged in to update a routine!</h1>
         }
       </div>
-    </page>
+    </main>
   )
 }
 
