@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { registeredUser, myRoutineData } from "../ajax-requests";
 
-const Login = ({ token, setToken, setMyRoutines }) => {
+const Login = ({ token, setToken, setMyRoutines, setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
     const user = {username, password};
+    setUser(username);
     const results = await registeredUser(user);
     console.log(results)
       

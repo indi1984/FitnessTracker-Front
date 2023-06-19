@@ -62,7 +62,7 @@ function App() {
         />
         <Route
           path='/login'
-          element={<Login setToken={setToken} token={token} setMyRoutines={setMyRoutines} myRoutines={myRoutines} />}
+          element={<Login setToken={setToken} token={token} setMyRoutines={setMyRoutines} myRoutines={myRoutines} setUser={setUser} />}
         />
         <Route
           path='/createRoutine'

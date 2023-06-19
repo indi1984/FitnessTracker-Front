@@ -4,7 +4,8 @@ import { updateRoutine } from "../ajax-requests";
 
 const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
 
-  const {name, goal, isPublic } = currentRoutine;
+  const { id, name, goal, isPublic } = currentRoutine;
+  console.log(currentRoutine.id)
 
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedGoal, setUpdatedGoal] = useState(goal);
@@ -19,7 +20,7 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
       isPublic
     }
 
-    const results = await updateRoutine(_id, token, routine);
+    const results = await updateRoutine(id, token, routine);
     
     if (results.success) {
       alert("Routine updated successfully!");
@@ -33,13 +34,13 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
   }
 
   return(
-    <page>
+    <>
       <nav id="navbar">
         { !token
           ? window.location.href="/"
           : <React.Fragment>
               <Link to="/">Back to Routines</Link>
-              <Link to="/profile">My Routines</Link>
+              <Link to="/MyRoutines">My Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
@@ -83,7 +84,7 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
           : <h1 id="errorMessage">You must be logged in to update a routine!</h1>
         }
       </div>
-    </page>
+    </>
   )
 }
 
