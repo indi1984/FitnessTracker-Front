@@ -22,9 +22,9 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
 
     const results = await updateRoutine(id, token, routine);
     
-    if (results.success) {
+    if (results) {
       alert("Routine updated successfully!");
-      window.location.href = "/";
+      window.location.href = "/myRoutines";
     };
   }
 

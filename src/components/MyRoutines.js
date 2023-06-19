@@ -3,21 +3,20 @@ import { Link } from "react-router-dom";
 import { myRoutineData, myData }from '../ajax-requests';
 
 const MyRoutines = ({ setMyRoutines, myRoutines, token, setToken, setCurrentRoutine}) => {
-   
-  async function getUserInfo(token) {
-    const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMDc4MjYsImV4cCI6MTY4NzgxMjYyNn0._fdks1HhW6aa7NjePec6zcEPVy7M0pmrQKZ1gBKWnIQ'
+
+  async function getUserInfo() {
+    
+    const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMTExMTIsImV4cCI6MTY4NzgxNTkxMn0.UoREP0N0hgBNQ5u_3TwCfCMcP_twJQ2JKhhhJD_3eBU'
     const results = await myData(testToken);
     const username = results.username;
-    console.log(username)
     return username;
   }
   
- 
-
   async function setUserRoutines() {
     if (token) {
       const username = await getUserInfo();
-      const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMDc4MjYsImV4cCI6MTY4NzgxMjYyNn0._fdks1HhW6aa7NjePec6zcEPVy7M0pmrQKZ1gBKWnIQ'
+      console.log(token)
+      const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMTExMTIsImV4cCI6MTY4NzgxNTkxMn0.UoREP0N0hgBNQ5u_3TwCfCMcP_twJQ2JKhhhJD_3eBU'
       const results = await myRoutineData(username, testToken);
       setMyRoutines(results);
       console.log(myRoutines);

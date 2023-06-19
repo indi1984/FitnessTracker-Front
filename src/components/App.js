@@ -23,7 +23,7 @@ function App() {
 
   async function getRoutines() {
     const results = await allRoutines();
-    if (results.length) {
+    if (results) {
       setRoutines(results)
     }
   };
@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     getRoutines();
     tokenCheck();
-  }, []);
+  }, [ token ]);
 
   return (
     <>
@@ -59,7 +59,7 @@ function App() {
         /> */}
         <Route
           path='/myRoutines'
-          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} user={user} setCurrentRoutine={setCurrentRoutine} />}
+          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} setUser={setUser} user={user} setCurrentRoutine={setCurrentRoutine} />}
         />
         <Route
           path='/viewSingleRoutine'
