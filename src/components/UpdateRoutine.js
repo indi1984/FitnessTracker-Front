@@ -22,9 +22,16 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
 
     const results = await updateRoutine(id, token, routine);
     
-    if (results) {
+    if (!results.error) {
       alert("Routine updated successfully!");
-      window.location.href = "/myRoutines";
+      if (token) {
+        window.location.href = "/myRoutines";
+      } else {
+        window.location.href = "/";
+      }
+    } else {
+      alert("You are not the creator of this routine!");
+      window.location.href = "/";
     };
   }
 
@@ -74,8 +81,8 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
                   <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={ isPublic }
-                    onChange={({target: {value}}) => {setIsPublic(value)}}
+                    defaultChecked={ isPublic }
+                    onClick={(event) => {setIsPublic(event.target.checked)}}
                   />
                 </div>
                 <button type="submit">Update Routine</button>

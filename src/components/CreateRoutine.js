@@ -68,8 +68,8 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
                   <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={ isPublic }
-                    onChange={({ target: { value } }) => { setIsPublic(value) }}
+                    defaultChecked={ isPublic }
+                    onClick={(event) => {setIsPublic(event.target.checked)}}
                   />
                 </div>
                 <button type="submit">Create Routine</button>

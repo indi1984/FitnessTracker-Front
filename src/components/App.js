@@ -67,7 +67,7 @@ function App() {
         />
         <Route
           path='/updateRoutine'
-          element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} />}
+          element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
         <Route
           path='/activities'
