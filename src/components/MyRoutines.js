@@ -2,24 +2,18 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { myRoutineData, myData }from '../ajax-requests';
 
-const MyRoutines = ({ setMyRoutines, myRoutines, token, setToken, setCurrentRoutine}) => {
+const MyRoutines = ({ setMyRoutines, myRoutines, token, setToken, setCurrentRoutine, currentUser}) => {
 
   async function getUserInfo() {
-    
-    const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMTExMTIsImV4cCI6MTY4NzgxNTkxMn0.UoREP0N0hgBNQ5u_3TwCfCMcP_twJQ2JKhhhJD_3eBU'
-    const results = await myData(testToken);
+    const results = await myData(token);
     const username = results.username;
-    return username;
-  }
+    setUserRoutines(username, token);
+ }
   
-  async function setUserRoutines() {
+  async function setUserRoutines(username, token) {
     if (token) {
-      const username = await getUserInfo();
-      console.log(token)
-      const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEzNSwidXNlcm5hbWUiOiJLZXZpbkhhcnAiLCJpYXQiOjE2ODcyMTExMTIsImV4cCI6MTY4NzgxNTkxMn0.UoREP0N0hgBNQ5u_3TwCfCMcP_twJQ2JKhhhJD_3eBU'
-      const results = await myRoutineData(username, testToken);
+      const results = await myRoutineData(username, token);
       setMyRoutines(results);
-      console.log(myRoutines);
     }
   }
 
@@ -29,8 +23,7 @@ const MyRoutines = ({ setMyRoutines, myRoutines, token, setToken, setCurrentRout
   }
 
   useEffect(() => {
-    getUserInfo();
-    setUserRoutines();
+    getUserInfo();    
   }, []);
 
    return (

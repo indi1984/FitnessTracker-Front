@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { deleteRoutine } from "../ajax-requests";
 
-const ViewSingleRoutine = ({ user, currentRoutine, setCurrentRoutine, token, setToken }) => {
-  console.log("User: ", user);
+const ViewSingleRoutine = ({ currentRoutine, setCurrentRoutine, token, setToken }) => {
     
   async function handleDelete(routineId, token) {
     const results = await deleteRoutine(routineId, token);

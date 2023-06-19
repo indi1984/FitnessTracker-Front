@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { registeredUser, myRoutineData } from "../ajax-requests";
 
-const Login = ({ setToken, setUser }) => {
+const Login = ({ setToken, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
@@ -9,12 +9,11 @@ const Login = ({ setToken, setUser }) => {
   async function handleSubmit(event) {
     event.preventDefault();
     const user = {username, password};
-    setUser(user);
     const results = await registeredUser(user);
       
     if (results) {
       setToken(results.token);
-      console.log(results.token)
+      setCurrentUser(user);
       window.localStorage.setItem("token",results.token);
       location.href = "/";
     } else {

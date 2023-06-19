@@ -5,7 +5,7 @@ import { allRoutines } from '../ajax-requests'
 
 function App() {
   const [token, setToken] = useState("");
-  const [user, setUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [routines, setRoutines] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
@@ -47,7 +47,7 @@ function App() {
         />
         <Route
           path='/login'
-          element={<Login setToken={setToken} token={token} setMyRoutines={setMyRoutines} myRoutines={myRoutines} setUser={setUser} />}
+          element={<Login setToken={setToken} token={token} setMyRoutines={setMyRoutines} myRoutines={myRoutines} setCurrentUser={setCurrentUser} />}
         />
         <Route
           path='/createRoutine'
@@ -59,11 +59,11 @@ function App() {
         /> */}
         <Route
           path='/myRoutines'
-          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} setUser={setUser} user={user} setCurrentRoutine={setCurrentRoutine} />}
+          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} setCurrentUser={setCurrentUser} currentUser={currentUser} setCurrentRoutine={setCurrentRoutine} />}
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine user={user} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
+          element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
         <Route
           path='/updateRoutine'
