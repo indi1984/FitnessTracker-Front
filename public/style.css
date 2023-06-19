@@ -90,7 +90,7 @@ h2 {
   font-size: 200%;
 }
 
-.routine, .message {
+.routine, .routine_activity {
   display: flex;
   flex-direction: column;
   background-color: rgba(116, 116, 116, 0.886);
@@ -100,12 +100,12 @@ h2 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.post > *:not(button) {
+.routine > *:not(button) {
   background-color: #747474;
   /* height: 5px; */
 }
 
-.post > h2 {
+.routine > h2 {
   display: flex;
   justify-content: center;
 }
@@ -115,7 +115,7 @@ h2 {
   justify-content: center;
 }
 
-.post > form > input {
+.routine > form > input {
   width: 75%
 }
 

@@ -2,11 +2,16 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { createRoutine } from "../ajax-requests";
 
-const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, myRoutineName, myRoutineGoal }) => {
+const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRoutineName, myRoutineName, myRoutineGoal, isPublic }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const routine = {myRoutineName, myRoutineGoal};
+    const routine = { 
+      name: myRoutineName, 
+      goal: myRoutineGoal,
+      isPublic 
+    };
+    console.log(routine);
     const results = await createRoutine(routine, token);
      if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
       alert("Routine created successfully!");
@@ -44,8 +49,8 @@ const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, my
                   <input 
                     type="text"
                     placeholder="Enter Name*"
-                    value={myRoutineName}
-                    onChange={(event) => {setMyRoutineName(event.target.value)}}
+                    value={ myRoutineName }
+                    onChange={(event) => { setMyRoutineName(event.target.value) }}
                     required
                   />
                 </div>
@@ -54,8 +59,8 @@ const CreateRoutine = ({ token, setToken, setMyRoutineGoal, setMyRoutineName, my
                   <input 
                     type="text"
                     placeholder="Enter Goal*"
-                    value={myRoutineGoal}
-                    onChange={(event) => {setMyRoutineGoal(event.target.value)}}
+                    value={ myRoutineGoal }
+                    onChange={(event) => { setMyRoutineGoal(event.target.value) }}
                     required
                   />
                 </div>

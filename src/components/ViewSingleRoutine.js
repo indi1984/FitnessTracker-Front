@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { deleteRoutine, myData } from "../ajax-requests";
+import { deleteRoutine } from "../ajax-requests";
 
 const ViewSingleRoutine = ({ user, currentRoutine, setCurrentRoutine, token, setToken }) => {
-  console.log(user);
+  console.log("User: ", user);
     
   async function handleDelete(routineId, token) {
     const results = await deleteRoutine(routineId, token);
-    if (results.success) {
+    if (!results.error) {
       window.location.href = "/";
     }
   }
@@ -20,7 +20,7 @@ const ViewSingleRoutine = ({ user, currentRoutine, setCurrentRoutine, token, set
   console.log(currentRoutine)
 
     return (
-    <section className="viewPost">
+    <section className="viewRoutine">
       <nav id="navbar">
         { !token
           ? <React.Fragment>
@@ -34,20 +34,26 @@ const ViewSingleRoutine = ({ user, currentRoutine, setCurrentRoutine, token, set
            </React.Fragment>
         }
       </nav>
-      <div className="post">
+      <div className="routine">
         <h2>{currentRoutine.name}</h2>
-        <p>{currentRoutine.goal}</p>
-          { currentRoutine.activities ? currentRoutine.activities.map((activity, index) => {
-            <div 
-              key={index}
-              className="routine_activity"
-            >
-              { activity.name     ? <h5>{ activity.name }</h5>             : null }
-              { activity.goal     ? <p>{ activity.goal } </p>              : null }
-              { activity.duration ? <h5>Duration: {activity.duration}</h5> : null }
-              { activity.count    ? <h5>Count: {activity.count}</h5>       : null }
-            </div>
-          })                                                               : null }
+        <p>Goal: {currentRoutine.goal}</p>
+        { currentRoutine.activities ? <h4>ACTIVITIES</h4> : null }
+        { currentRoutine.activities ? 
+            currentRoutine.activities.map((activity, index) => {
+              return (
+                <div 
+                  key={index}
+                  className="routine_activity"
+                >
+                  { activity.name        ? <h5>{ activity.name }</h5>                    : null }
+                  { activity.description ? <p>Description: { activity.description } </p> : null }
+                  { activity.duration    ? <h5>Duration: {activity.duration}</h5>        : null }
+                  { activity.count       ? <h5>Count: {activity.count}</h5>              : null }
+                </div>
+              )
+            })
+            : null 
+        }
         <div>
           { currentRoutine.creatorName ? <Link to="/updateRoutine"><button onClick={() => {setCurrentRoutine(currentRoutine)}}>UPDATE</button></Link> : null }
           { currentRoutine.creatorName ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null }
