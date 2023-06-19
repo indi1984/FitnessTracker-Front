@@ -28,10 +28,7 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
       } else {
         window.location.href = "/";
       }
-    } else {
-      alert("You are not the creator of this routine!");
-      window.location.href = "/";
-    };
+    }
   }
 
   function logout() {
