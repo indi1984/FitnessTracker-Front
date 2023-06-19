@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
-import { allRoutines, myData } from '../ajax-requests'
+import { allRoutines } from '../ajax-requests'
 
 function App() {
   const [token, setToken] = useState("");
@@ -11,25 +11,13 @@ function App() {
   const [myRoutines, setMyRoutines] = useState({});
   const [myRoutineName, setMyRoutineName] = useState("");
   const [myRoutineGoal, setMyRoutineGoal] = useState("");
-  // const [searchTerm, setSearchTerm] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [location, setLocation] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
-  
-  async function setCurrentUser(token) {
-    if (token) {
-      setUser(await myData(token));
-    }
-  }
-  
-  
   function tokenCheck() {
     const localToken = window.localStorage.getItem("token");
     if(localToken) {
       setToken(localToken);
-     // getMyData(localToken);
     }
   }
 
@@ -43,10 +31,7 @@ function App() {
   useEffect(() => {
     getRoutines();
     tokenCheck();
-    setCurrentUser(token);
   }, []);
-
-  console.log(user)
 
   return (
     <>
@@ -74,7 +59,7 @@ function App() {
         /> */}
         <Route
           path='/myRoutines'
-          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} />}
+          element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} user={user} setCurrentRoutine={setCurrentRoutine} />}
         />
         <Route
           path='/viewSingleRoutine'
