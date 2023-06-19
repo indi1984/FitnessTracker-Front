@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
-import { fetchRoutines } from "../ajax-requests";
+import { allRoutines, myData } from '../ajax-requests'
 
 function App() {
   const [token, setToken] = useState("");
+  const [user, setUser] = useState({});
   const [routines, setRoutines] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
@@ -18,29 +19,36 @@ function App() {
   const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
+  
+  async function setCurrentUser(token) {
+    if (token) {
+      const currentUser = await myData(token);
+    }
+  }
+  
+  
   function tokenCheck() {
     const localToken = window.localStorage.getItem("token");
     if(localToken) {
       setToken(localToken);
-      // getMyData(localToken);
+     // getMyData(localToken);
     }
   }
 
   async function getRoutines() {
-    const results = await fetchRoutines();
-    console.log(results);
-    if (results) {
+    const results = await allRoutines();
+    if (results.length) {
       setRoutines(results)
     }
   };
 
   useEffect(() => {
-    tokenCheck();
+    getRoutines();
+    tokenCheck(); 
+    
   }, []);
 
-  useEffect(() => {
-    getRoutines();
-  }, [token]);
+  console.log(user)
 
   return (
     <>
@@ -72,7 +80,7 @@ function App() {
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
+          element={<ViewSingleRoutine user={user} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
         <Route
           path='/updateRoutine'

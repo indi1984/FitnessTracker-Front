@@ -107,19 +107,16 @@ export const updateRoutineActivity = async (routineActivityId, token, routineAct
  //* ROUTINES
 
 // GET /routines
-export const fetchRoutines = async () => {
+export const allRoutines = async () => {
   try {
     const response = await fetch(`${BASE_URL}/routines`, {
-      method: "GET",
+      // method: "GET",
       headers: {
       'Content-Type': 'application/json',
       }
     });
-    
     const result = await response.json();
-    console.log(result);
     return result;
-
     } catch (err) {
     console.error(err);
     }

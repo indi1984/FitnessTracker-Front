@@ -16,6 +16,7 @@ const MyRoutines = ({ setMyRoutines, myRoutines, routines, token, setToken }) =>
     const routineToView = await myRoutineData(token);
     console.log(routineToView)
     setMyRoutines(routineToView);
+    console.log(myRoutines)
   }
 
   function logout() {
@@ -40,20 +41,32 @@ const MyRoutines = ({ setMyRoutines, myRoutines, routines, token, setToken }) =>
         }
         </nav>
       <h2>My Routines</h2>
-      {/* {
-        // myRoutines.map((routine, index) => {
+      {
+        myRoutines && myRoutines.map((routine, index) => {
           return (
             <div
               key={index}
-              className="message"
+              className="routine"
             >
-              <h3>From: {message.fromUser.username}</h3>
-              { message.content ? <h4>Message: {message.content}</h4> : null}
-              <Link to="/viewPost" onClick={() => getPost(message.post._id)}>VIEW MY POST: {message.post.title}</Link>
+              { routine.name        ? <h2>{ routine.name }</h2>                 : null }
+              { routine.goal        ? <p>Goal: { routine.goal }</p>             : null }
+              { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
+              { routine.activities  ? routine.activities.map((activity, index) => {
+                <div 
+                  key={index}
+                  className="routine_activity"
+                >
+                  { activity.name     ? <h5>{ activity.name }</h5>             : null }
+                  { activity.goal     ? <p>{ activity.goal } </p>              : null }
+                  { activity.duration ? <h5>Duration: {activity.duration}</h5> : null }
+                  { activity.count    ? <h5>Count: {activity.count}</h5>       : null }
+                </div>
+              })                                                               : null }
+              { <Link to="/viewSingleRoutine"><button onClick={() => {setCurrentRoutine(routine)}}>VIEW ROUTINE</button></Link> }
             </div>
           )
         })
-      } */}
+      }
     </section>
    )
 }
