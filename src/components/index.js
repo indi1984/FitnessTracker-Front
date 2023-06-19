@@ -7,5 +7,7 @@ export { default as MyRoutines } from './MyRoutines';
 export { default as Register } from './Register';
 // export { default as SendMessage } from './SendMessage';
 export { default as UpdateRoutine } from './UpdateRoutine';
+export { default as UpdateActivity } from './UpdateActivity';
 export { default as ViewSingleRoutine } from './ViewSingleRoutine';
+export { default as ViewSingleActivity } from './ViewSingleActivity';
 export { default as Activities } from './Activities';

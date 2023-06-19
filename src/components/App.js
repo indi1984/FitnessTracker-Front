@@ -63,10 +63,6 @@ function App() {
           path='/createRoutine'
           element={<CreateRoutine token={token} setToken={setToken} myRoutineName={myRoutineName} setMyRoutineName={setMyRoutineName} myRoutineGoal={myRoutineGoal} setMyRoutineGoal={setMyRoutineGoal} isPublic={isPublic} setIsPublic={setIsPublic} />}
         />
-        {/* <Route 
-          path='/sendMessage'
-          element={<SendMessage currentRoutine={currentRoutine} token={token} />}
-        /> */}
         <Route
           path='/myRoutines'
           element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} setCurrentUser={setCurrentUser} currentUser={currentUser} setCurrentRoutine={setCurrentRoutine} />}
@@ -75,18 +71,22 @@ function App() {
           path='/viewSingleRoutine'
           element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
         />
+        {/* <Route
+          path='/viewSingleActivity'
+          element={<ViewSingleActivity currentUser={currentUser} currentActivity={currentActivity} setCurrentActivity={setCurrentActivity} token={token} setToken={setToken} />}
+        /> */}
         <Route
           path='/updateRoutine'
           element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
+        {/* <Route
+          path='/updateActivity'
+          element={<UpdateActivity currentActivity={currentActivity} token={token} setCurrentActivity={setCurrentActivity} setToken={setToken} />}
+        /> */}
         <Route
           path='/activities'
           element={<Activities activities={activities} currentActivity= {currentActivity} setCurrentActivity={setCurrentActivity} currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
-
-
-
-
       </Routes>
     </>
   )

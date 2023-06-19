@@ -22,6 +22,7 @@ function Activities({ activities, token, setCurrentActivity, setToken }) {
       <nav id="navbar">
       { !token
         ? <React.Fragment>
+            <Link to="/">    All Routines</Link>
             <Link to="/login">   Login</Link>
             <Link to="/register">Register</Link>
           </React.Fragment>

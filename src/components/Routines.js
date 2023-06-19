@@ -24,7 +24,7 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
         ? <React.Fragment>
             <Link to="/login">   Login</Link>
             <Link to="/register">Register</Link>
-            <Link to="/activities">Activities</Link>
+            <Link to="/activities">All Activities</Link>
           </React.Fragment>
         : <React.Fragment>
             <Link to="/createRoutine">    Create Routine</Link>
