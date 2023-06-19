@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
-import { allRoutines } from '../ajax-requests'
+import { allRoutines, allActivities } from '../ajax-requests'
 
 function App() {
   const [token, setToken] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [routines, setRoutines] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [currentActivity, setCurrentActivity] = useState([]);
   const [currentRoutine, setCurrentRoutine] = useState({});
   const [myRoutines, setMyRoutines] = useState({});
   const [myRoutineName, setMyRoutineName] = useState("");
@@ -28,8 +30,16 @@ function App() {
     }
   };
 
+  async function getActivities() {
+    const results = await allActivities();
+    if (results) {
+      setActivities(results)
+    }
+  };
+
   useEffect(() => {
     getRoutines();
+    getActivities();
     tokenCheck();
   }, [ token ]);
 
@@ -71,7 +81,7 @@ function App() {
         />
         <Route
           path='/activities'
-          element={<Activities currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
+          element={<Activities activities={activities} currentActivity= {currentActivity} setCurrentActivity={setCurrentActivity} currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
 
 

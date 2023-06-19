@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from 'react-router-dom';
 
-function Activities({ routines, token, setCurrentRoutine, setToken }) {
+function Activities({ activities, token, setCurrentActivity, setToken }) {
 
   function logout() {
     setToken('');
@@ -14,7 +14,7 @@ function Activities({ routines, token, setCurrentRoutine, setToken }) {
   //   return post.description.includes(text) || post.title.includes(text);
   // }
 
-  const filteredRoutines = routines.filter(routine => routine.isPublic === true);
+  // const filteredRoutines = routines.filter(routine => routine.isPublic === true);
   // const postsToDisplay = searchTerm.length ? filteredPosts : posts;
 
   return (
@@ -26,8 +26,7 @@ function Activities({ routines, token, setCurrentRoutine, setToken }) {
             <Link to="/register">Register</Link>
           </React.Fragment>
         : <React.Fragment>
-            <Link to="/createRoutine">    Create Routine</Link>
-            <Link to="/myRoutines">       My Routines</Link>
+            <Link to="/">    All Routines</Link>
             <Link to="/" onClick={ logout }>Logout</Link>
           </React.Fragment>
       }
@@ -51,15 +50,14 @@ function Activities({ routines, token, setCurrentRoutine, setToken }) {
         </form>
       </div> */}
       {
-        filteredRoutines && filteredRoutines.map((routine, index) => {
+        activities && activities.map((activity, index) => {
           return (
             <div
               key={index}
               className="routine"
             >
-              { routine.name        ? <h2>{ routine.name }</h2>                 : null }
-              { routine.goal        ? <h3>Goal: { routine.goal }</h3>             : null }
-              { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
+              { activity.name        ? <h2>{ activity.name }</h2>                 : null }
+              { activity.description        ? <h3>Goal: { activity.description }</h3>             : null }
               {/* { routine.activities  ? <h4>ACTIVITIES</h4>                       : null }  // <=== Made each routine look too long I think, we could use this on the viewSingleRoutine
               { routine.activities  ? routine.activities.map((activity, id) => {
                 return (
@@ -71,7 +69,7 @@ function Activities({ routines, token, setCurrentRoutine, setToken }) {
                 </div>
                 )
               })                                                               : null } */}
-              { <Link to="/viewSingleRoutine"><button onClick={() => { setCurrentRoutine(routine)} }>VIEW ROUTINE</button></Link> }
+              { <Link to="/viewSingleActivity"><button onClick={() => { setCurrentActivity(activity)} }>VIEW ACTIVITY</button></Link> }
             </div>
           )
         })

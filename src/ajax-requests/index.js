@@ -2,7 +2,7 @@ export const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 //* ACTIVITIES
 
-export const activities = async () => {
+export const allActivities = async () => {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
       headers: {
