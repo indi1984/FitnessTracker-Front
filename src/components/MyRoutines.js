@@ -2,14 +2,15 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { myRoutineData, myData }from '../ajax-requests';
 
-const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRoutine, currentUser}) => {
-
+const MyRoutines = ({ setMyRoutines, setCurrentRoutine, currentUser}) => {
+  const token = window.localStorage.getItem("token");
   console.log(token);
 
-  async function getUserInfo() {
+  async function getUserInfo(token) {
     const { username } = await myData(token);
-    setMyRoutines(await myRoutineData(username, token));
+    const myRoutines  = await myRoutineData(username, token);
     console.log(myRoutines);
+    return myRoutines;
  }
 
   function logout() {
@@ -19,7 +20,6 @@ const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRout
 
   useEffect((token) => {
     getUserInfo(token);   
-    console.log() 
   }, [ token ]);
 
    return (
@@ -35,7 +35,7 @@ const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRout
         }
         </nav>
       <h2>My Routines</h2>
-      {
+      {/* {
         myRoutines && myRoutines.map((routine, index) => {
           return (
             <div
@@ -61,7 +61,7 @@ const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRout
             </div>
           )
         })
-      }
+      } */}
     </section>
    )
 }

@@ -55,7 +55,7 @@ const ViewSingleRoutine = ({ currentRoutine, setCurrentRoutine, token, setToken 
         }
         <div>
           { currentRoutine.creatorName ? <Link to="/updateRoutine"><button onClick={() => {setCurrentRoutine(currentRoutine)}}>UPDATE</button></Link> : null }
-          { currentRoutine.creatorName ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null }
+          { currentRoutine.creatorName ? <button onClick={() => handleDelete(currentRoutine.id, token)}>DELETE</button> : null }
         </div>
       </div>
     </section>
