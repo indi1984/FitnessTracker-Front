@@ -2,31 +2,27 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { updateRoutine } from "../ajax-requests";
 
-const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
+const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
 
-  const {title, description, price, location, willDeliver, _id } = currentPost;
+  const {name, goal, isPublic } = currentRoutine;
 
-  const [updatedTitle, setUpdatedTitle] = useState(title);
-  const [updatedDescription, setUpdatedDescription] = useState(description);
-  const [updatedPrice, setUpdatedPrice] = useState(price);
-  const [updatedLocation, setUpdatedLocation] = useState(location);
-  const [updatedWillDeliver, setUpdatedWillDeliver] = useState(willDeliver);
+  const [updatedName, setUpdatedName] = useState(name);
+  const [updatedGoal, setUpdatedGoal] = useState(goal);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const post = {
-      title: updatedTitle,
-      description: updatedDescription,
-      price: updatedPrice,
-      location: updatedLocation,
-      willDeliver: updatedWillDeliver
+    const routine = {
+      name: updatedName,
+      goal: updatedGoal,
+      isPublic
     }
 
-    const results = await updatePost(_id, token, post);
+    const results = await updateRoutine(_id, token, routine);
     
     if (results.success) {
-      alert("Post updated successfully!");
+      alert("Routine updated successfully!");
       window.location.href = "/";
     };
   }
@@ -42,8 +38,8 @@ const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/">Back to Listings</Link>
-              <Link to="/profile">Profile</Link>
+              <Link to="/">Back to Routines</Link>
+              <Link to="/profile">My Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
@@ -51,59 +47,40 @@ const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
       <div>
         {token
           ? <form onSubmit={handleSubmit}>
-              <h2>Update Post</h2>
+              <h2>Update Routine</h2>
               <fieldset>
                 <div>
-                  <label>Title:</label>
+                  <label>Name:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Title*"
-                    value={updatedTitle}
-                    onChange={({target: {value}}) => {setUpdatedTitle(value)}}
+                    placeholder="Enter Name*"
+                    value={updatedName}
+                    onChange={({target: {value}}) => {setUpdatedName(value)}}
                     required
                   />
                 </div>
                 <div>
-                  <label>Description:</label>
+                  <label>Goal:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Description*"
-                    value={updatedDescription}
-                    onChange={(event) => {setUpdatedDescription(event.target.value)}}
+                    placeholder="Enter Goal*"
+                    value={updatedGoal}
+                    onChange={(event) => {setUpdatedGoal(event.target.value)}}
                     required
                   />
                 </div>
                 <div>
-                  <label>Price:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Price*"
-                    value={updatedPrice}
-                    onChange={({target: {value}}) => {setUpdatedPrice(value)}}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>Location:</label>
-                  <input 
-                    type="text"
-                    placeholder="Enter Location"
-                    value={updatedLocation}
-                    onChange={({target: {value}}) => {setUpdatedLocation(value)}}
-                  />
-                </div>
-                <div>
-                  <label id="checkbox">Willing to Deliver?</label>
+                  <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={updatedWillDeliver}
-                    onChange={({target: {value}}) => {setUpdatedWillDeliver(value)}}
+                    value={ isPublic }
+                    onChange={({target: {value}}) => {setIsPublic(value)}}
                   />
                 </div>
-                <button type="submit">Update Post</button>
+                <button type="submit">Update Routine</button>
               </fieldset>
             </form>
-          : <h1 id="errorMessage">You must be logged in to create a post!</h1>
+          : <h1 id="errorMessage">You must be logged in to update a routine!</h1>
         }
       </div>
     </page>

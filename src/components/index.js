@@ -8,3 +8,4 @@ export { default as Register } from './Register';
 // export { default as SendMessage } from './SendMessage';
 export { default as UpdateRoutine } from './UpdateRoutine';
 export { default as ViewSingleRoutine } from './ViewSingleRoutine';
+export { default as Activities } from './Activities';

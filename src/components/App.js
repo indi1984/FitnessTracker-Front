@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine } from "./" // by default ./ searches for index.js file in components folder
+import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
 import { allRoutines, myData } from '../ajax-requests'
 
 function App() {
@@ -84,6 +84,14 @@ function App() {
           path='/updateRoutine'
           element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} />}
         />
+        <Route
+          path='/activities'
+          element={<Activities currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
+        />
+
+
+
+
       </Routes>
     </>
   )

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from 'react-router-dom';
 
-function Routines({ routines, token, setCurrentRoutine, setToken }) {
+function Activities({ routines, token, setCurrentRoutine, setToken }) {
 
   function logout() {
     setToken('');
@@ -24,12 +24,10 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
         ? <React.Fragment>
             <Link to="/login">   Login</Link>
             <Link to="/register">Register</Link>
-            <Link to="/activities">Activities</Link>
           </React.Fragment>
         : <React.Fragment>
             <Link to="/createRoutine">    Create Routine</Link>
             <Link to="/myRoutines">       My Routines</Link>
-            <Link to="/activities">Activities</Link>
             <Link to="/" onClick={ logout }>Logout</Link>
           </React.Fragment>
       }
@@ -82,7 +80,7 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
   )
 }
 
-export default Routines;
+export default Activities;
 
 // for "/viewSingleRoutine":
   // return (
