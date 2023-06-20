@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { deleteRoutine, attachActivity } from "../ajax-requests";
+import { deleteRoutine, attachActivity, deleteRoutineActivity } from "../ajax-requests";
 
 const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, token, setToken, activities, setCurrentActivity }) => {
+  console.log(token);
 
   const [activityName, setActivityName] = useState("");
   const [activityCount, setActivityCount] = useState(0);
@@ -81,6 +82,7 @@ const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, tok
                   { activity.duration    ? <h5>Duration: {activity.duration}</h5>        : null }
                   { activity.count       ? <h5>Count: {activity.count}</h5>              : null }
                   { currentRoutine.creatorName === currentUser ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(activity)}}>UPDATE ACTIVITY</button></Link> : null }
+                  { currentRoutine.creatorName === currentUser ? <Link to="/myRoutines"><button onClick={() => {deleteRoutineActivity(activity.routineActivityId, token)}}>DELETE ACTIVITY</button></Link> : null }
                 </div>
               )
             })
