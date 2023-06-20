@@ -29,7 +29,8 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
         : <React.Fragment>
             <Link to="/createRoutine">    Create Routine</Link>
             <Link to="/myRoutines">       My Routines</Link>
-            <Link to="/activities">Activities</Link>
+            <Link to="/activities">     Activities</Link>
+            <Link to="/createActivity">     Create Activity</Link>
             <Link to="/" onClick={ logout }>Logout</Link>
           </React.Fragment>
       }

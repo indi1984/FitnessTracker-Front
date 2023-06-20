@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities, ViewSingleActivity, UpdateActivity } from "./" // by default ./ searches for index.js file in components folder
+import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities, ViewSingleActivity, UpdateActivity, CreateActivity} from "./" // by default ./ searches for index.js file in components folder
 import { allRoutines, allActivities } from '../ajax-requests'
 
 function App() {
@@ -13,6 +13,8 @@ function App() {
   const [myRoutines, setMyRoutines] = useState({});
   const [myRoutineName, setMyRoutineName] = useState("");
   const [myRoutineGoal, setMyRoutineGoal] = useState("");
+  const [myActivityName, setMyActivityName] = useState("");
+  const [myActivityDescription, setMyActivityDescription] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
@@ -62,6 +64,10 @@ function App() {
         <Route
           path='/createRoutine'
           element={<CreateRoutine token={token} setToken={setToken} myRoutineName={myRoutineName} setMyRoutineName={setMyRoutineName} myRoutineGoal={myRoutineGoal} setMyRoutineGoal={setMyRoutineGoal} isPublic={isPublic} setIsPublic={setIsPublic} />}
+        />
+        <Route
+          path='/createActivity'
+          element={<CreateActivity token={token} myActivityName={myActivityName} setMyActivityName={setMyActivityName} myActivityDescription={myActivityDescription} setMyActivityDescription={setMyActivityDescription} />}
         />
         <Route
           path='/myRoutines'

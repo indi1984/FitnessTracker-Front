@@ -1,5 +1,6 @@
 export { default as App } from './App';
 export { default as CreateRoutine } from './CreateRoutine';
+export { default as CreateActivity } from './CreateActivity';
 export { default as Header } from './Header';
 export { default as Login } from './Login';
 export { default as Routines } from './Routines';
