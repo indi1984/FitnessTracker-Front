@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { registeredUser, myRoutineData } from "../ajax-requests";
 
-const Login = ({ token, setToken, setMyRoutines }) => {
+const Login = ({ setToken, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
 
   async function handleSubmit(event) {
     event.preventDefault();
     const user = {username, password};
     const results = await registeredUser(user);
-    console.log(results)
       
     if (results) {
       setToken(results.token);
+      setCurrentUser(user);
       window.localStorage.setItem("token",results.token);
       location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")
     }
   };
-
-  async function setUserRoutines (username, token) {
-    if (token) {
-      const results = await myRoutineData(username, token);
-      setMyRoutines(results);
-    }
-  }
-
-  useEffect((token) => {
-    setUserRoutines();
-  }, [ token ]);
-
 
   return (
     <form id="login" onSubmit={handleSubmit}>

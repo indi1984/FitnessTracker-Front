@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { updateRoutine } from "../ajax-requests";
+import { updateActivity } from "../ajax-requests";
 
-const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
+const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
 
   const { id, name, goal, isPublic } = currentRoutine;
   console.log(currentRoutine.id)
@@ -10,11 +10,6 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedGoal, setUpdatedGoal] = useState(goal);
 
-  const [updatedTitle, setUpdatedTitle] = useState(title);
-  const [updatedDescription, setUpdatedDescription] = useState(description);
-  const [updatedPrice, setUpdatedPrice] = useState(price);
-  const [updatedLocation, setUpdatedLocation] = useState(location);
-  const [updatedWillDeliver, setUpdatedWillDeliver] = useState(willDeliver);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -100,4 +95,4 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
   )
 }
 
-export default UpdateRoutines;
+export default UpdateActivity;

@@ -34,7 +34,7 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
           ? window.location.href="/"
           : <React.Fragment>
               <Link to="/">Back to Routines</Link>
-              <Link to="/profile">My Routines</Link>
+              <Link to="/myRoutines">My Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
@@ -68,8 +68,8 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
                   <label id="checkbox">Make Public?</label>
                   <input 
                     type="checkbox"
-                    value={ isPublic }
-                    onChange={({ target: { value } }) => { setIsPublic(value) }}
+                    defaultChecked={ isPublic }
+                    onClick={(event) => {setIsPublic(event.target.checked)}}
                   />
                 </div>
                 <button type="submit">Create Routine</button>

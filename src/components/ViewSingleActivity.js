@@ -1,22 +1,21 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { deleteRoutine } from "../ajax-requests";
 
-const ViewSingleRoutine = ({ currentRoutine, setCurrentRoutine, token, setToken }) => {
+const ViewSingleActivity = ({ currentActivity, setCurrentActivity, token, setToken }) => {
     
-  async function handleDelete(routineId, token) {
-    const results = await deleteRoutine(routineId, token);
-    if (!results.error) {
-      window.location.href = "/";
-    }
-  }
+  // async function handleDelete(routineId, token) {
+  //   const results = await deleteRoutine(routineId, token);
+  //   if (!results.error) {
+  //     window.location.href = "/";
+  //   }
+  // }
 
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
   }
 
-  console.log(currentRoutine)
+  console.log(currentActivity)
 
     return (
     <section className="viewRoutine">
@@ -54,12 +53,12 @@ const ViewSingleRoutine = ({ currentRoutine, setCurrentRoutine, token, setToken 
             : null 
         }
         <div>
-          { currentRoutine.creatorName ? <Link to="/updateRoutine"><button onClick={() => {setCurrentRoutine(currentRoutine)}}>UPDATE</button></Link> : null }
-          { currentRoutine.creatorName ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null }
+          {/* { currentRoutine.creatorName ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(currentActivity)}}>UPDATE</button></Link> : null } */}
+          {/* { currentRoutine.creatorName ? <button onClick={() => handleDelete(routineId, token)}>DELETE</button> : null } */}
         </div>
       </div>
     </section>
   )
 }
 
-export default ViewSingleRoutine;
+export default ViewSingleActivity;

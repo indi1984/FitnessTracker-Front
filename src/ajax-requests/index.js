@@ -1,8 +1,8 @@
-export const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
+export const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 //* ACTIVITIES
 
-export const activities = async () => {
+export const allActivities = async () => {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
       headers: {
@@ -36,7 +36,7 @@ export const newActivity = async (activity) => {
 
 export const updateActivity = async (activityId, token, activity) => {
     try {
-      const response = await fetch(`${BASE_URL}/posts/:${activityId}`, {
+      const response = await fetch(`${BASE_URL}/posts/${activityId}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export const updateActivity = async (activityId, token, activity) => {
 
     export const publicRoutineData = async (activityId) => {
     try {
-      const response = await fetch(`${BASE_URL}/activities/:${activityId}/routines`, {
+      const response = await fetch(`${BASE_URL}/activities/${activityId}/routines`, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -71,7 +71,7 @@ export const updateActivity = async (activityId, token, activity) => {
 
 export const updateRoutineActivity = async (routineActivityId, token, routineActivity) => {
     try {
-      const response = await fetch(`${BASE_URL}/routine_activities/:${routineActivityId}`, {
+      const response = await fetch(`${BASE_URL}/routine_activities/${routineActivityId}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const updateRoutineActivity = async (routineActivityId, token, routineAct
 
   export const deleteRoutineActivity = async (routineActivityId, token) => {
     try {
-      const response = await fetch(`${BASE_URL}/routine_activities/:${routineActivityId}`, {
+      const response = await fetch(`${BASE_URL}/routine_activities/${routineActivityId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export const allRoutines = async () => {
   // PATCH /routines/:routineId
   export const updateRoutine = async (routineId, token, routine) => {
     try {
-      const response = await fetch(`${BASE_URL}/routines/:${routineId}`, {
+      const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
         method: "PATCH",
         headers: {
         'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export const allRoutines = async () => {
   // DELETE /routines/:routineId
   export const deleteRoutine = async (routineId, token) => {
     try {
-      const response = await fetch(`${BASE_URL}/routines/:${routineId}`, {
+      const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ export const allRoutines = async () => {
   // POST /routines/:routineId/activities
   export const attachActivity = async (routineId, activity) => {
     try {
-      const response = await fetch (`${BASE_URL}/routines/:${routineId}/activities`, {
+      const response = await fetch (`${BASE_URL}/routines/${routineId}/activities`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ export const myData = async (token) => {
 
   export const myRoutineData = async (username, token) => {
     try {
-      const response = await fetch(`${BASE_URL}/users/:${username}/routines`, {
+      const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
