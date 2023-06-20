@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
-import { allRoutines, allActivities } from '../ajax-requests'
+import { allRoutines, allActivities, myRoutineData, myData } from '../ajax-requests'
 
 function App() {
   const [token, setToken] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState("");
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
   const [currentActivity, setCurrentActivity] = useState([]);
@@ -16,10 +16,14 @@ function App() {
   const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
-  function tokenCheck() {
+  async function tokenCheck() {
     const localToken = window.localStorage.getItem("token");
+    const user = window.localStorage.getItem("currentUser");
     if(localToken) {
       setToken(localToken);
+      setCurrentUser(user);
+      const { username } = await myData(localToken);
+      setMyRoutines(await myRoutineData(username, localToken));
     }
   }
 
@@ -53,7 +57,7 @@ function App() {
         />
         <Route 
           path='/register'
-          element={<Register setToken={setToken} token={token} />}
+          element={<Register setToken={setToken} token={token} setCurrentUser={setCurrentUser} />}
         />
         <Route
           path='/login'
@@ -69,7 +73,7 @@ function App() {
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} />}
+          element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} activities={activities} setCurrentActivity={setCurrentActivity} />}
         />
         {/* <Route
           path='/viewSingleActivity'

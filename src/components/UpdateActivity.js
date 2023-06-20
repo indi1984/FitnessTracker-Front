@@ -38,6 +38,7 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   return(

@@ -11,7 +11,7 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
       goal: myRoutineGoal,
       isPublic 
     };
-    console.log(routine);
+
     const results = await createRoutine(routine, token);
      if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
       alert("Routine created successfully!");
@@ -25,6 +25,7 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   return (

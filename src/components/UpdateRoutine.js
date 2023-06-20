@@ -10,12 +10,6 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedGoal, setUpdatedGoal] = useState(goal);
 
-  const [updatedTitle, setUpdatedTitle] = useState(title);
-  const [updatedDescription, setUpdatedDescription] = useState(description);
-  const [updatedPrice, setUpdatedPrice] = useState(price);
-  const [updatedLocation, setUpdatedLocation] = useState(location);
-  const [updatedWillDeliver, setUpdatedWillDeliver] = useState(willDeliver);
-
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -43,6 +37,7 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   return(

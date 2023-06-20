@@ -6,6 +6,7 @@ function Activities({ activities, token, setCurrentActivity, setToken }) {
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   // function postMatches(post, text) {

@@ -13,6 +13,7 @@ const ViewSingleActivity = ({ currentActivity, setCurrentActivity, token, setTok
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   console.log(currentActivity)

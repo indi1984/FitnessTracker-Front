@@ -6,6 +6,7 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
 
   // function postMatches(post, text) {
@@ -62,17 +63,6 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
               { routine.name        ? <h2>{ routine.name }</h2>                 : null }
               { routine.goal        ? <h3>Goal: { routine.goal }</h3>             : null }
               { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
-              {/* { routine.activities  ? <h4>ACTIVITIES</h4>                       : null }  // <=== Made each routine look too long I think, we could use this on the viewSingleRoutine
-              { routine.activities  ? routine.activities.map((activity, id) => {
-                return (
-                <div 
-                  key={id}
-                  className="routine_activity"
-                >
-                  { activity.name        ? <h5>{ activity.name }</h5>             : null }
-                </div>
-                )
-              })                                                               : null } */}
               { <Link to="/viewSingleRoutine"><button onClick={() => { setCurrentRoutine(routine)} }>VIEW ROUTINE</button></Link> }
             </div>
           )
@@ -83,16 +73,3 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
 }
 
 export default Routines;
-
-// for "/viewSingleRoutine":
-  // return (
-  //   <div 
-  //     key={id}
-  //     className="routine_activity"
-  //   >
-  //     { activity.name        ? <h5>{ activity.name }</h5>             : null }
-  //     { activity.description ? <p>{ activity.description } </p>       : null }
-  //     { activity.duration    ? <h5>Duration: {activity.duration}</h5> : null }
-  //     { activity.count       ? <h5>Count: {activity.count}</h5>       : null }
-  //   </div>
-  //   )

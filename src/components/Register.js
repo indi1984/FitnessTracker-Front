@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../ajax-requests";
 
-const Register = ({ setToken, token }) => {
+const Register = ({ setToken, token, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,21 +15,25 @@ const Register = ({ setToken, token }) => {
       const user = {username, password};
       const results = await registerUser(user);
 
-      if (results.success) {
-        setToken(results.data.token);
-        window.localStorage.setItem("token",results.data.token);
+      if (!results.error) {
+        setToken(results.token);
+        window.localStorage.setItem("token",results.token);
+        setCurrentUser(username);
+        window.localStorage.setItem("currentUser",username);
         location.href = "/";
+      } else if (results.error === "A user by that username already exists") {
+        alert("A user by that username already exists! Please create a different username or login if this is your username.")
       }
     }
   }
 
   return (
-    <page>
+    <main>
       <nav id="navbar">
       { !token
         ? <React.Fragment>
             <Link to="/login">Login</Link>
-            <Link to="/">Back to Listings</Link>
+            <Link to="/">Back to Routines</Link>
           </React.Fragment>
         : window.location.href="/"
       }
@@ -60,7 +64,7 @@ const Register = ({ setToken, token }) => {
           </form>
         </div>
       </section>
-    </page>
+    </main>
   )
 }
 

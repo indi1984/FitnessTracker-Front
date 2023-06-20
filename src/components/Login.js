@@ -11,10 +11,11 @@ const Login = ({ setToken, setCurrentUser }) => {
     const user = {username, password};
     const results = await registeredUser(user);
       
-    if (results) {
+    if (!results.error) {
       setToken(results.token);
-      setCurrentUser(user);
       window.localStorage.setItem("token",results.token);
+      setCurrentUser(username);
+      window.localStorage.setItem("currentUser",username);
       location.href = "/";
     } else {
       window.alert("Username and/or Password not accepted!")

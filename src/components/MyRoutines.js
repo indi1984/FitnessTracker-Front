@@ -1,26 +1,13 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { myRoutineData, myData }from '../ajax-requests';
 
-const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRoutine, currentUser}) => {
-
-  console.log(token);
-
-  async function getUserInfo() {
-    const { username } = await myData(token);
-    setMyRoutines(await myRoutineData(username, token));
-    console.log(myRoutines);
- }
+const MyRoutines = ({ myRoutines, token, setToken, setCurrentRoutine }) => {
 
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("currentUser");
   }
-
-  useEffect((token) => {
-    getUserInfo(token);   
-    console.log() 
-  }, [ token ]);
 
    return (
     <section className="routines">
@@ -44,9 +31,10 @@ const MyRoutines = ({ myRoutines, setMyRoutines, token, setToken, setCurrentRout
             >
               { routine.name        ? <h2>{ routine.name }</h2>                 : null }
               { routine.goal        ? <p>Goal: { routine.goal }</p>             : null }
-              { routine.isPublic    ? <p>isPublic: { routine.isPublic }</p>     : null }
-              { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null }
-              { routine.activities  ? routine.activities.map((activity, index) => {
+              { routine.isPublic    ? <p>Public: TRUE</p>      : <p>Public: FALSE</p> }
+              {/* { routine.creatorName ? <h4>Creator: { routine.creatorName }</h4> : null } <= seemed unnecessary when viewing only "my" routines */}
+              { routine.activities.length > 0 ? <h4>ACTIVITIES</h4> : <h4>NO ACTIVITIES ADDED YET!</h4> }
+              { routine.activities.length > 0 ? routine.activities.map((activity, index) => {
                 <div 
                   key={index}
                   className="routine_activity"
