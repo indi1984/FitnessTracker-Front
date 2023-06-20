@@ -16,12 +16,13 @@ export const allActivities = async () => {
   }
 };
 
-export const newActivity = async (activity) => {
+export const newActivity = async (activity, token) => {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(
         activity
@@ -36,7 +37,7 @@ export const newActivity = async (activity) => {
 
 export const updateActivity = async (activityId, token, activity) => {
     try {
-      const response = await fetch(`${BASE_URL}/posts/${activityId}`, {
+      const response = await fetch(`${BASE_URL}/activities/${activityId}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',

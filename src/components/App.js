@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities } from "./" // by default ./ searches for index.js file in components folder
+import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities, ViewSingleActivity, UpdateActivity, CreateActivity} from "./" // by default ./ searches for index.js file in components folder
 import { allRoutines, allActivities, myRoutineData, myData } from '../ajax-requests'
 
 function App() {
@@ -13,6 +13,8 @@ function App() {
   const [myRoutines, setMyRoutines] = useState({});
   const [myRoutineName, setMyRoutineName] = useState("");
   const [myRoutineGoal, setMyRoutineGoal] = useState("");
+  const [myActivityName, setMyActivityName] = useState("");
+  const [myActivityDescription, setMyActivityDescription] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const page = window.location.pathname;
 
@@ -68,6 +70,10 @@ function App() {
           element={<CreateRoutine token={token} setToken={setToken} myRoutineName={myRoutineName} setMyRoutineName={setMyRoutineName} myRoutineGoal={myRoutineGoal} setMyRoutineGoal={setMyRoutineGoal} isPublic={isPublic} setIsPublic={setIsPublic} />}
         />
         <Route
+          path='/createActivity'
+          element={<CreateActivity token={token} myActivityName={myActivityName} setMyActivityName={setMyActivityName} myActivityDescription={myActivityDescription} setMyActivityDescription={setMyActivityDescription} />}
+        />
+        <Route
           path='/myRoutines'
           element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} token={token} setToken={setToken} setCurrentUser={setCurrentUser} currentUser={currentUser} setCurrentRoutine={setCurrentRoutine} />}
         />
@@ -75,18 +81,18 @@ function App() {
           path='/viewSingleRoutine'
           element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} activities={activities} setCurrentActivity={setCurrentActivity} />}
         />
-        {/* <Route
+        <Route
           path='/viewSingleActivity'
           element={<ViewSingleActivity currentUser={currentUser} currentActivity={currentActivity} setCurrentActivity={setCurrentActivity} token={token} setToken={setToken} />}
-        /> */}
+        />
         <Route
           path='/updateRoutine'
           element={<UpdateRoutine currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}
         />
-        {/* <Route
+        <Route
           path='/updateActivity'
           element={<UpdateActivity currentActivity={currentActivity} token={token} setCurrentActivity={setCurrentActivity} setToken={setToken} />}
-        /> */}
+        />
         <Route
           path='/activities'
           element={<Activities activities={activities} currentActivity= {currentActivity} setCurrentActivity={setCurrentActivity} currentRoutine={currentRoutine} token={token} setCurrentRoutine={setCurrentRoutine} setToken={setToken} setIsPublic={setIsPublic} />}

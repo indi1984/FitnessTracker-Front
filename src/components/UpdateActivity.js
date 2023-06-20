@@ -4,35 +4,31 @@ import { updateActivity } from "../ajax-requests";
 
 const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
 
-  const { id, name, goal, isPublic } = currentRoutine;
-  console.log(currentRoutine.id)
+  const { id, name, description } = currentActivity;
+  console.log(currentActivity.id)
 
   const [updatedName, setUpdatedName] = useState(name);
-  const [updatedGoal, setUpdatedGoal] = useState(goal);
+  const [updatedDescription, setUpdatedDescription] = useState(description);
 
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const routine = {
+    const activity = {
       name: updatedName,
-      goal: updatedGoal,
-      isPublic
+      description: updatedDescription,
     }
 
-    const results = await updateRoutine(id, token, routine);
+    const results = await updateActivity(id, token, activity);
     
     if (!results.error) {
-      alert("Routine updated successfully!");
+      alert("Activity updated successfully!");
       if (token) {
-        window.location.href = "/myRoutines";
+        window.location.href = "/activities";
       } else {
         window.location.href = "/";
       }
-    } else {
-      alert("You are not the creator of this routine!");
-      window.location.href = "/";
-    };
+    }
   }
 
   function logout() {
@@ -47,8 +43,8 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
         { !token
           ? window.location.href="/"
           : <React.Fragment>
-              <Link to="/">Back to Routines</Link>
-              <Link to="/MyRoutines">My Routines</Link>
+              <Link to="/activities">Back to Activities</Link>
+              <Link to="/">All Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
             </React.Fragment>
         }
@@ -56,7 +52,7 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
       <div>
         {token
           ? <form onSubmit={handleSubmit}>
-              <h2>Update Routine</h2>
+              <h2>Update Activity</h2>
               <fieldset>
                 <div>
                   <label>Name:</label>
@@ -69,27 +65,19 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
                   />
                 </div>
                 <div>
-                  <label>Goal:</label>
+                  <label>Description:</label>
                   <input 
                     type="text"
-                    placeholder="Enter Goal*"
-                    value={updatedGoal}
-                    onChange={(event) => {setUpdatedGoal(event.target.value)}}
+                    placeholder="Enter Description*"
+                    value={updatedDescription}
+                    onChange={(event) => {setUpdatedDescription(event.target.value)}}
                     required
                   />
                 </div>
-                <div>
-                  <label id="checkbox">Make Public?</label>
-                  <input 
-                    type="checkbox"
-                    defaultChecked={ isPublic }
-                    onClick={(event) => {setIsPublic(event.target.checked)}}
-                  />
-                </div>
-                <button type="submit">Update Routine</button>
+                <button type="submit">Update Activity</button>
               </fieldset>
             </form>
-          : <h1 id="errorMessage">You must be logged in to update a routine!</h1>
+          : <h1 id="errorMessage">You must be logged in to update an Activity!</h1>
         }
       </div>
     </>
