@@ -1,16 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { deleteRoutineActivity } from "../ajax-requests"
 
 const ViewSingleActivity = ({ currentActivity, setCurrentActivity, token, setToken }) => {
     
-  // async function handleDelete(routineId, token) {
-  //   const results = await deleteRoutine(routineId, token);
-  //   if (!results.error) {
-  //     window.location.href = "/";
-  //   }
-  // }
-
   function logout() {
     setToken('');
     window.localStorage.removeItem("token");
@@ -39,7 +31,6 @@ const ViewSingleActivity = ({ currentActivity, setCurrentActivity, token, setTok
         <p>Description: {currentActivity.description}</p>
         <div>
           { currentActivity.id ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(currentActivity)}}>UPDATE</button></Link> : null }
-          {/* { currentActivity.id ? <button onClick={() => deleteRoutineActivity(routineActivityId, token)}>DELETE</button> : null } */}
         </div>
       </div>
     </section>

@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Play&display=swap');
+
+* {
+  background-color: #747474;
+  color: rgb(21, 0, 128);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Lobster', cursive,  sans-serif;
+  align-items: center;
+}
+
+h1 {
+  font-size: 250%;
+}
+
+nav > * {
+  padding: 5px;
+  font-size: larger;
+}
+
+fieldset {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  margin: 10px;
+  flex-direction: column;
+}
+
+fieldset > * {
+  padding: 5px;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  margin-right: 5px;
+  font-family: 'ITC Benguiat Std', sans-serif;
+}
+
+#keywords {
+  width: 500px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form > * {
+  padding: 5px;
+  margin: 5px;
+}
+
+button {
+  font-family: 'ITC Benguiat Std', sans-serif;
+  font-size: medium;
+  width: 150px;
+  color: beige;
+  background-color: rgb(21, 0, 128);
+  margin: 5px;
+}
+
+button:hover {
+  background-color: rgba(101, 74, 236, 0.535);
+}
+
+input {
+  background-color: beige;
+  padding: 5px;
+}
+
+#checkbox {
+  display: unset;
+  margin-left: 5px;
+}
+
+legend {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+}
+
+h2 {
+  font-family: 'ITC Benguiat Std', sans-serif;
+  font-size: 200%;
+}
+
+.routine, .routine_activity {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(116, 116, 116, 0.886);
+  border: 1px solid rgb(0, 0, 0);
+  margin: 5px;
+  padding: 5px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.routine > *:not(button) {
+  background-color: #747474;
+  /* height: 5px; */
+}
+
+.routine > h2 {
+  display: flex;
+  justify-content: center;
+}
+
+#errorMessage {
+  display: flex;
+  justify-content: center;
+}
+
+.routine > form > input {
+  width: 75%
+}
+
+.messages {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.message > * {
+  background-color: rgb(23, 22, 22);
+}
+
+.message {
+  width: 50%;
+}
+
+#success {
+  display: flex;
+  justify-content: center;
+  color: green;
+}
+
+#register {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: rgb(0, 0, 0) 1px solid;
+  margin: 20px;
+  padding: 20px;
+  width: 50%
+}
+
+.registerContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#navbar {
+  display: flex;
+  justify-content: center;
+}
+
+/* pop-up to add activity to routine
+{box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  cursor: pointer;
+  opacity: 0.8;
+  font-family: 'ITC Benguiat Std', sans-serif;
+  font-size: medium;
+  width: 150px;
+  color: beige;
+  background-color: rgb(21, 0, 128);
+  margin: 5px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position:sticky;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  /* max-width: 400px; */
+  display: flex;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-container > label > b, .form-container > label, .form-container > h1 {
+  background-color: white;
+  text-align: center;
+  margin-right: unset;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 75%;
+  padding: 15px 20px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}

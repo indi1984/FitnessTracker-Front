@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CreateRoutine, Header, Login, Routines, MyRoutines, Register, UpdateRoutine, ViewSingleRoutine, Activities, ViewSingleActivity, UpdateActivity, CreateActivity} from "./" // by default ./ searches for index.js file in components folder
+import { CreateRoutine, 
+  Header, 
+  Login, 
+  Routines, 
+  MyRoutines, 
+  Register, 
+  UpdateRoutine, 
+  ViewSingleRoutine, 
+  Activities, 
+  ViewSingleActivity, 
+  UpdateActivity, 
+  CreateActivity, 
+  UpdateRoutineActivity } from "./" 
 import { allRoutines, allActivities, myRoutineData, myData } from '../ajax-requests'
 
 function App() {
@@ -16,6 +28,9 @@ function App() {
   const [myActivityName, setMyActivityName] = useState("");
   const [myActivityDescription, setMyActivityDescription] = useState("");
   const [isPublic, setIsPublic] = useState(false);
+  const [activityCount, setActivityCount] = useState(0);
+  const [activityDuration, setActivityDuration] = useState("");
+  const [currentRoutineActivity, setCurrentRoutineActivity] = useState({});
   const page = window.location.pathname;
 
   async function tokenCheck() {
@@ -79,7 +94,7 @@ function App() {
         />
         <Route
           path='/viewSingleRoutine'
-          element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} activities={activities} setCurrentActivity={setCurrentActivity} />}
+          element={<ViewSingleRoutine currentUser={currentUser} myRoutines={myRoutines} currentRoutine={currentRoutine} setCurrentRoutine={setCurrentRoutine} token={token} setToken={setToken} activities={activities} setCurrentActivity={setCurrentActivity} setActivityDuration={setActivityDuration} setActivityCount={setActivityCount} activityCount={activityCount} activityDuration={activityDuration} setCurrentRoutineActivity={setCurrentRoutineActivity} currentRoutineActivity={currentRoutineActivity} />}
         />
         <Route
           path='/viewSingleActivity'
@@ -92,6 +107,10 @@ function App() {
         <Route
           path='/updateActivity'
           element={<UpdateActivity currentActivity={currentActivity} token={token} setCurrentActivity={setCurrentActivity} setToken={setToken} />}
+        />
+        <Route
+          path='/updateRoutineActivity'
+          element={<UpdateRoutineActivity currentActivity={currentActivity} token={token} setCurrentActivity={setCurrentActivity} setToken={setToken} setActivityDuration={setActivityDuration} setActivityCount={setActivityCount} activityCount={activityCount} activityDuration={activityDuration} currentRoutineActivity={currentRoutineActivity}/>}
         />
         <Route
           path='/activities'

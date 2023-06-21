@@ -13,7 +13,7 @@ const CreateRoutine = ({ token, setToken, setIsPublic, setMyRoutineGoal, setMyRo
     };
 
     const results = await createRoutine(routine, token);
-     if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
+     if (!results.error) {  
       alert("Routine created successfully!");
       window.location.href = "/";
     } else if (results.error.includes("duplicate key")) {

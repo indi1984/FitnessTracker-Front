@@ -31,10 +31,10 @@ const Register = ({ setToken, token, setCurrentUser }) => {
     <main>
       <nav id="navbar">
       { !token
-        ? <React.Fragment>
+        ? <Fragment>
             <Link to="/login">Login</Link>
             <Link to="/">Back to Routines</Link>
-          </React.Fragment>
+          </Fragment>
         : window.location.href="/"
       }
       </nav>

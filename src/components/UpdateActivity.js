@@ -42,11 +42,11 @@ const UpdateActivity = ({ currentActivity, token, setToken, setIsPublic }) => {
       <nav id="navbar">
         { !token
           ? window.location.href="/"
-          : <React.Fragment>
+          : <Fragment>
               <Link to="/activities">Back to Activities</Link>
               <Link to="/">All Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
-            </React.Fragment>
+            </Fragment>
         }
       </nav>
       <div>

@@ -2,13 +2,15 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { updateRoutine } from "../ajax-requests";
 
-const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
+const UpdateRoutines = ({ currentRoutine, token, setToken }) => {
 
   const { id, name, goal, isPublic } = currentRoutine;
   console.log(currentRoutine.id)
 
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedGoal, setUpdatedGoal] = useState(goal);
+  const [updatedIsPublic, setUpdatedIsPublic] = useState(isPublic);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -16,7 +18,7 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
     const routine = {
       name: updatedName,
       goal: updatedGoal,
-      isPublic
+      isPublic: updatedIsPublic
     }
 
     const results = await updateRoutine(id, token, routine);
@@ -45,11 +47,11 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
       <nav id="navbar">
         { !token
           ? window.location.href="/"
-          : <React.Fragment>
+          : <Fragment>
               <Link to="/">Back to Routines</Link>
               <Link to="/MyRoutines">My Routines</Link>
               <Link to="/" onClick={logout}>Logout</Link>
-            </React.Fragment>
+            </Fragment>
         }
       </nav>
       <div>
@@ -82,7 +84,7 @@ const UpdateRoutines = ({ currentRoutine, token, setToken, setIsPublic }) => {
                   <input 
                     type="checkbox"
                     defaultChecked={ isPublic }
-                    onClick={(event) => {setIsPublic(event.target.checked)}}
+                    onClick={(event) => {setUpdatedIsPublic(event.target.checked)}}
                   />
                 </div>
                 <button type="submit">Update Routine</button>

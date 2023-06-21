@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from 'react-router-dom';
 import { deleteRoutine, attachActivity, deleteRoutineActivity } from "../ajax-requests";
 
-const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, token, setToken, activities, setCurrentActivity }) => {
+const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, token, setToken, activities, activityCount, setActivityCount, activityDuration, setActivityDuration, setCurrentRoutineActivity}) => {
   console.log(token);
 
   const [activityName, setActivityName] = useState("");
-  const [activityCount, setActivityCount] = useState(0);
-  const [activityDuration, setActivityDuration] = useState("");
 
   async function handleDelete(routineId, token) {
     const results = await deleteRoutine(routineId, token);
+    if (!results.error) {
+      window.location.href = "/";
+    }
+  };
+ 
+  async function handleDeleteActivity(routineActivityId, token) {
+    const results = await deleteRoutineActivity(routineActivityId, token);
     if (!results.error) {
       window.location.href = "/";
     }
@@ -49,21 +54,19 @@ const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, tok
     document.getElementById("myForm").style.display = "none";
   }
 
-  console.log(currentRoutine.activities)
-
     return (
     <section className="viewRoutine">
       <nav id="navbar">
         { !token
-          ? <React.Fragment>
+          ? <Fragment>
              <Link to="/">Back to Listings</Link>
-           </React.Fragment>
-          :<React.Fragment>
+           </Fragment>
+          :<Fragment>
              <Link to="/createRoutine">Create Routine</Link>
              <Link to="/myRoutines">My Routines</Link>
              <Link to="/">Back to Routines</Link>
              <Link to="/" onClick={logout}>Logout</Link>
-           </React.Fragment>
+           </Fragment>
         }
       </nav>
       <div className="routine">
@@ -81,8 +84,8 @@ const ViewSingleRoutine = ({ currentUser, currentRoutine, setCurrentRoutine, tok
                   { activity.description ? <p>Description: { activity.description } </p> : null }
                   { activity.duration    ? <h5>Duration: {activity.duration}</h5>        : null }
                   { activity.count       ? <h5>Count: {activity.count}</h5>              : null }
-                  { currentRoutine.creatorName === currentUser ? <Link to="/updateActivity"><button onClick={() => {setCurrentActivity(activity)}}>UPDATE ACTIVITY</button></Link> : null }
-                  { currentRoutine.creatorName === currentUser ? <Link to="/myRoutines"><button onClick={() => {deleteRoutineActivity(activity.routineActivityId, token)}}>DELETE ACTIVITY</button></Link> : null }
+                  { currentRoutine.creatorName === currentUser ? <Link to="/updateRoutineActivity"><button onClick={() => {setCurrentRoutineActivity(activity)}}>UPDATE ACTIVITY</button></Link> : null }
+                  { currentRoutine.creatorName === currentUser ? <button onClick={() => {handleDeleteActivity(activity.routineActivityId, token)}}>DELETE ACTIVITY</button> : null }
                 </div>
               )
             })

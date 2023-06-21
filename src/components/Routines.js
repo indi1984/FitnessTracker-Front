@@ -9,31 +9,24 @@ function Routines({ routines, token, setCurrentRoutine, setToken }) {
     window.localStorage.removeItem("currentUser");
   }
 
-  // function postMatches(post, text) {
-  //   // return true if any of the fields you want to check against include the text
-  //   // strings have an .includes() method
-  //   return post.description.includes(text) || post.title.includes(text);
-  // }
-
   const filteredRoutines = routines.filter(routine => routine.isPublic === true);
-  // const postsToDisplay = searchTerm.length ? filteredPosts : posts;
 
   return (
     <section className="routines">
       <nav id="navbar">
       { !token
-        ? <React.Fragment>
+        ? <Fragment>
             <Link to="/login">   Login</Link>
             <Link to="/register">Register</Link>
             <Link to="/activities">All Activities</Link>
-          </React.Fragment>
-        : <React.Fragment>
+          </Fragment>
+        : <Fragment>
             <Link to="/createRoutine">    Create Routine</Link>
             <Link to="/myRoutines">       My Routines</Link>
             <Link to="/activities">     Activities</Link>
             <Link to="/createActivity">     Create Activity</Link>
             <Link to="/" onClick={ logout }>Logout</Link>
-          </React.Fragment>
+          </Fragment>
       }
       </nav>
       {/* <div className="searchBar">

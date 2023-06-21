@@ -11,7 +11,7 @@ const CreateActivity = ({ token, setToken, myActivityName, myActivityDescription
       description: myActivityDescription, 
     };
     const results = await newActivity(activity, token);
-     if (!results.error) {  // unable to use 'results.success' because no 'success' property exists like in Stranger's Things (where would we add that?)
+     if (!results.error) {  
       alert("Activity created successfully!");
       window.location.href = "/activities";
     } else if (results.error.includes("duplicate key")) {
